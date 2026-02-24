@@ -1,0 +1,8050 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "ApnAccessSettingsAdjustmentInput": {
+      "type": "object",
+      "properties": {
+        "apnName": {
+          "type": "string"
+        },
+        "allocationType": {
+          "$ref": "#/definitions/IpAllocationType"
+        },
+        "staticIPv4Address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "staticIPv6Address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "staticIPv4Addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "staticIPv6Addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnName",
+        "allocationType"
+      ]
+    },
+    "ApnAuthSettingsAdjustmentInput": {
+      "type": "object",
+      "properties": {
+        "apnName": {
+          "type": "string"
+        },
+        "deviceAuth": {
+          "$ref": "#/definitions/DeviceAuthInput"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnName",
+        "deviceAuth"
+      ]
+    },
+    "AssignMonitoringProfileInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "monitoringProfileId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CancelSimOrderInputInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "CreateSimOrderInputInput": {
+      "type": "object",
+      "properties": {
+        "agreementId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expectedSimProfiles": {
+          "$ref": "#/definitions/ExpectedSimProfilesInput"
+        },
+        "addresseeName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "expectedDeliveryAddress": {
+          "$ref": "#/definitions/ExpectedDeliveryAddressInput"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "expectedSimProfiles",
+        "addresseeName",
+        "phoneNumber",
+        "expectedDeliveryAddress"
+      ]
+    },
+    "DefaultApnReplacementInput": {
+      "type": "object",
+      "properties": {
+        "apnToReplace": {
+          "type": "string"
+        },
+        "replaceWithApn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnToReplace"
+      ]
+    },
+    "DeviceAuthInput": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "EditSimOrderAliasParamsInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "alias"
+      ]
+    },
+    "EditSimOrderBusinessUnitParamsInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "businessUnitId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "businessUnitId"
+      ]
+    },
+    "EditSimOrderDeliveryParamsInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "addresseeName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "companyName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "newDeliveryAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ExpectedDeliveryAddressInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "EditSimOrderParamsInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "newExpected": {
+          "$ref": "#/definitions/NewExpectedSimProfilesInput"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "newExpected"
+      ]
+    },
+    "ExpectedDeliveryAddressInput": {
+      "type": "object",
+      "properties": {
+        "countryCode": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "houseNumber": {
+          "type": "string"
+        },
+        "apartmentNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "addressLine2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "countryCode",
+        "postalCode",
+        "city",
+        "street",
+        "houseNumber"
+      ]
+    },
+    "ExpectedSimProfilesInput": {
+      "type": "object",
+      "properties": {
+        "packageQuantity": {
+          "type": "integer"
+        },
+        "packageSize": {
+          "type": "integer"
+        },
+        "unitSubscriptionId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "packageQuantity",
+        "packageSize",
+        "unitSubscriptionId"
+      ]
+    },
+    "InstallationLocationAddressInput": {
+      "type": "object",
+      "properties": {
+        "addressLines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "adminUnits": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "countryIso": {
+          "$ref": "#/definitions/ISOCountry"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "addressLines",
+        "postalCode",
+        "city",
+        "countryIso"
+      ]
+    },
+    "NetworkSettingsAdjustmentInput": {
+      "type": "object",
+      "properties": {
+        "apnName": {
+          "type": "string"
+        },
+        "allocationType": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/IpAllocationType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "staticIPv4Address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "staticIPv6Address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "staticIPv4Addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "staticIPv6Addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "deviceAuth": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DeviceAuthInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "isDefault": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnName"
+      ]
+    },
+    "NetworkSliceAdjustmentInput": {
+      "type": "object",
+      "properties": {
+        "snssai": {
+          "$ref": "#/definitions/SnssaiInput"
+        },
+        "defaultDnnName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "snssai"
+      ]
+    },
+    "NewExpectedSimProfilesInput": {
+      "type": "object",
+      "properties": {
+        "packageQuantity": {
+          "type": "integer"
+        },
+        "packageSize": {
+          "type": "integer"
+        },
+        "unitSubscriptionId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "packageQuantity",
+        "packageSize",
+        "unitSubscriptionId"
+      ]
+    },
+    "NonSharedAllowanceConfigurationInput": {
+      "type": "object",
+      "properties": {
+        "subscriptionId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "subscriptionId"
+      ]
+    },
+    "SimActivateInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "serviceProfileId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ServiceProfileId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityPlanId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ConnectivityServicePlanId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ActivatedSimState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "roamingProfileId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/RoamingProfileId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sharedAllowanceId": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonSharedAllowanceConfig": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NonSharedAllowanceConfigurationInput"
+          }
+        },
+        "networkSettings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NetworkSettingsAdjustmentInput"
+          }
+        },
+        "networkSlices": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NetworkSliceAdjustmentInput"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimAllowanceInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "shared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonShared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NonSharedAllowanceConfigurationInput"
+          }
+        },
+        "validFrom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimAssignCaptionInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "caption": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "caption"
+      ]
+    },
+    "SimChangeApnsAccessSettingsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "apnsAccessSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApnAccessSettingsAdjustmentInput"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnsAccessSettings"
+      ]
+    },
+    "SimChangeApnsAuthSettingsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "authSettings": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DeviceAuthInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "apnsAuthSettings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/ApnAuthSettingsAdjustmentInput"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimChangeCustomAttrInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "configId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrTagInputInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f01": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f02": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f03": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f04": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f05": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f06": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f07": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f08": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f09": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "f10": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrValueOpInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "clearValues": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimChangeCustomAttrTagInputInput": {
+      "type": "object",
+      "properties": {
+        "clear": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "remove": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "add": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimChangeCustomAttrValueOpInput": {
+      "type": "object",
+      "properties": {
+        "clear": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "remove": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "add": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimChangeServiceProfileInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "serviceProfileId": {
+          "$ref": "#/definitions/ServiceProfileId"
+        },
+        "connectivityPlanId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ConnectivityServicePlanId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expectedState": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ExpectedSimProfileState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "serviceProfileId"
+      ]
+    },
+    "SimConfigureApnsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "networkSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkSettingsAdjustmentInput"
+          }
+        },
+        "networkSlices": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NetworkSliceAdjustmentInput"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "networkSettings"
+      ]
+    },
+    "SimConfigureExpectedImeiInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "imei": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "imeiLock": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imei",
+        "imeiLock"
+      ]
+    },
+    "SimFinishInventoryInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "stage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FinishInventorySimState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityPlanId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimFinishReadyInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "stage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FinishReadySimState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityPlanId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimFinishSleepInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "connectivityPlanId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimFinishTestInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "stage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/FinishTestSimState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityPlanId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimFinishTestsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "stage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/TestsCompletedSimState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "serviceProfileId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ServiceProfileId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityPlanId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ConnectivityServicePlanId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimLabelsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "label": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "label"
+      ]
+    },
+    "SimModifyStateInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "serviceProfileId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ServiceProfileId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "connectivityPlanId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ConnectivityServicePlanId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimProfileCostCenterInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "costCenterId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "costCenterId"
+      ]
+    },
+    "SimProfileLocationInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "installLocation": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/InstallationLocationAddressInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimRemoveAllowanceInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "shared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonShared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimReplaceInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "targetImsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "targetIccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimRestrictionsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "restrictions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimRestriction"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "restrictions"
+      ]
+    },
+    "SimTerminationInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimTransferInactiveToBusinessUnitInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "targetUnitId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimTransferToBusinessUnitInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "targetUnitId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "newServiceProfileId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "newConnectivityPlanId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expectedState": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "networkSettings": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NetworkSettingsAdjustmentInput"
+          }
+        },
+        "networkSlices": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NetworkSliceAdjustmentInput"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimUnassignApnsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "apnNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaultApnName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "defaultApnsReplacement": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/DefaultApnReplacementInput"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnNames"
+      ]
+    },
+    "SimUpdateAssignedApnsInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "networkSettings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkSettingsAdjustmentInput"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "networkSettings"
+      ]
+    },
+    "SnssaiInput": {
+      "type": "object",
+      "properties": {
+        "serviceType": {
+          "$ref": "#/definitions/SnssaiServiceType"
+        },
+        "serviceDifferentiator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "serviceTypeNum": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "serviceType"
+      ]
+    },
+    "SubmitSimOrderInputInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "UnassignMonitoringProfileInputInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "BusinessUnitDetailsParametersInput": {
+      "type": "object",
+      "properties": {
+        "businessUnitId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "businessUnitId"
+      ]
+    },
+    "BusinessUnitsListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "BusinessUnitsParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/BusinessUnitsListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CostCenterListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CostCentersParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CostCenterListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CustomAttrListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CustomAttrQueryInputInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomAttrListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FieldsAccessFilterInput": {
+      "type": "object",
+      "properties": {
+        "selected": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "InvoiceDownloadParametersInput": {
+      "type": "object",
+      "properties": {
+        "invoiceId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "invoiceId"
+      ]
+    },
+    "InvoiceInfoListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "InvoiceInfoParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/InvoiceInfoListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MutationsAccessFilterInput": {
+      "type": "object",
+      "properties": {
+        "selected": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "PagingInput": {
+      "type": "object",
+      "properties": {
+        "before": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "after": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "first": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "last": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "limit": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "offset": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "QueriesAccessFilterInput": {
+      "type": "object",
+      "properties": {
+        "selected": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ServiceProfileListParametersInput": {
+      "type": "object",
+      "properties": {
+        "paging": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ServiceProfileListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ServiceProfileListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SessionHistoryFilterInput": {
+      "type": "object",
+      "properties": {
+        "serviceTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CellularServiceType"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "serviceTypes"
+      ]
+    },
+    "SessionHistoryParametersInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "paging": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timeFrame": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/TimeFrameInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SessionHistorySortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filter": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SessionHistoryFilterInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SessionHistorySortByInput": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ggsnIpAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sgsnAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "usage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "serviceType": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "technologyType": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subscriptionName": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "msisdn": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "iccid": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "terminationReason": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sessionStartTime": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sessionEndTime": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updateTime": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "apnName": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upLink": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "downLink": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ipAddressV4": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ipAddressV6Prefix": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "imei": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimChangeListParametersInput": {
+      "type": "object",
+      "properties": {
+        "paging": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimChangeListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requestedTime": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "changeType": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completionTime": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimListParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "serviceProfileId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ServiceProfileId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simStatus": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/SimState"
+          }
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "since": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "imsis": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "iccids": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "orderId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimListSortByInput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "msisdn": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "iccid": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "imei": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "activationDate": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pin1": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pin2": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "puk1": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "puk2": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimModuleParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimOrderListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimProfileOrderParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimOrderListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "TimeFrameInput": {
+      "type": "object",
+      "properties": {
+        "timeFrom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "timeTo": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UsageProfilesListSortByInput": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SortOrder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "UsageProfilesParametersInput": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PagingInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "sortBy": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/UsageProfilesListSortByInput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "customerId"
+      ]
+    },
+    "CancelSimOrderResult": {
+      "type": "object",
+      "properties": {
+        "cancelSimOrder": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CancelSimOrderResultInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created": {
+          "type": "boolean"
+        },
+        "updated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "created",
+        "updated"
+      ]
+    },
+    "CancelSimOrderResultInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "CreateSimOrderResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created": {
+          "type": "boolean"
+        },
+        "updated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "created",
+        "updated"
+      ]
+    },
+    "EditSimOrderResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created": {
+          "type": "boolean"
+        },
+        "updated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "created",
+        "updated"
+      ]
+    },
+    "Mutation": {
+      "type": "object",
+      "properties": {
+        "simRemoveMonitoringProfile": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simConfigureApns": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simAddLabels": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimLabelsChanges"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simRemoveLabels": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimLabelsChanges"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simClearLabels": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimLabelsChanges"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simAssignCaption": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCaption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simRemoveCaption": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCaption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simFinishSleep": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simChangeServiceProfile": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simConfigureExpectedImei": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simSendToSleep": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simMoveToInventory": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simFinishTests": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simActivate": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simTransferToBusinessUnit": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simTransferInactiveToBusinessUnit": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simChangeCustomAttributes": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeCustomAttrOutput"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simAddAllowances": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simRemoveAllowances": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simRemoveRestrictions": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simApplyRestrictions": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simInstallationAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimProfileLocation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simAssignToCostCenter": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimProfileCostCenter"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simUpdateAssignedApns": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simAssignApns": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simUnassignApns": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simChangeApnsAuth": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simChangeApnsIpSettings": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simTerminate": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simReset": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimResetChange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simReplace": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simAssignMonitoringProfile": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simFinishInventory": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simFinishReady": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simFinishTest": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simStartTest": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simStartInventory": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simStartLive": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simStartSleep": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cancelSimOrder": {
+          "$ref": "#/definitions/CancelSimOrderResult"
+        },
+        "submitSimOrder": {
+          "$ref": "#/definitions/SubmitSimOrderResult"
+        },
+        "createSimOrder": {
+          "$ref": "#/definitions/CreateSimOrderResult"
+        },
+        "editSimOrderProduct": {
+          "$ref": "#/definitions/EditSimOrderResult"
+        },
+        "editSimOrderDeliverySettings": {
+          "$ref": "#/definitions/EditSimOrderResult"
+        },
+        "editSimOrderAlias": {
+          "$ref": "#/definitions/EditSimOrderResult"
+        },
+        "editSimOrderBusinessUnit": {
+          "$ref": "#/definitions/EditSimOrderResult"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "cancelSimOrder",
+        "submitSimOrder",
+        "createSimOrder",
+        "editSimOrderProduct",
+        "editSimOrderDeliverySettings",
+        "editSimOrderAlias",
+        "editSimOrderBusinessUnit"
+      ]
+    },
+    "SimCaption": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "caption": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi"
+      ]
+    },
+    "SimChangeCustomAttrOutput": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "customAttr": {
+          "$ref": "#/definitions/CustomAttrOutput"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi",
+        "customAttr"
+      ]
+    },
+    "SimLabelsChanges": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi",
+        "labels"
+      ]
+    },
+    "SimProfileCostCenter": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "costCenterId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi"
+      ]
+    },
+    "SimProfileLocation": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "installLocation": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/InstallationLocationAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi"
+      ]
+    },
+    "SimResetChange": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "simId": {
+          "type": "string"
+        },
+        "completedTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "status": {
+          "$ref": "#/definitions/SimResetStatus"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "simId",
+        "status"
+      ]
+    },
+    "SubmitSimOrderResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created": {
+          "type": "boolean"
+        },
+        "updated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "created",
+        "updated"
+      ]
+    },
+    "AcceptanceSettings": {
+      "type": "object",
+      "properties": {
+        "orderAutoAcceptEnabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AutoAcceptCondition"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "conditions"
+      ]
+    },
+    "AccountBalanceModel": {
+      "type": "object",
+      "properties": {
+        "balance": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "AccountManager": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Contact"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "ActivationCode": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "qrValue": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "qrValue"
+      ]
+    },
+    "AgreementIdModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "AllowanceConsumptionState": {
+      "type": "object",
+      "properties": {
+        "currentSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "currentUsedSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remainingCurrentSize": {
+          "type": "number"
+        },
+        "usedCurrentSizePercentage": {
+          "type": "number"
+        },
+        "serviceType": {
+          "$ref": "#/definitions/AllowanceServiceType"
+        },
+        "nextRechargeSize": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "nextRechargePrice": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "limitsUsage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllowanceLimitsUsage"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "currentSize",
+        "currentUsedSize",
+        "remainingCurrentSize",
+        "usedCurrentSizePercentage",
+        "serviceType",
+        "limitsUsage"
+      ]
+    },
+    "AllowanceDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "allowanceShareMode": {
+          "$ref": "#/definitions/AllowanceShareMode"
+        },
+        "serviceUsageType": {
+          "$ref": "#/definitions/AllowanceServiceType"
+        },
+        "serviceUsageTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllowanceServiceType"
+          }
+        },
+        "level": {
+          "$ref": "#/definitions/ConnectivityAllowanceLevel"
+        },
+        "validTo": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "subscriptionRef": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AllowanceSubscription"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lifecycleStage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ProductLifecycleStage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "price": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "activeSimsCount": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "lastConsumptionDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "consumptionState": {
+          "$ref": "#/definitions/AllowanceConsumptionState"
+        },
+        "consumptionStates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllowanceConsumptionState"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "allowanceShareMode",
+        "serviceUsageType",
+        "serviceUsageTypes",
+        "level",
+        "consumptionState",
+        "consumptionStates"
+      ]
+    },
+    "AllowanceLimitsUsage": {
+      "type": "object",
+      "properties": {
+        "countryZones": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "limitSizePercentage": {
+          "type": "number"
+        },
+        "limitSize": {
+          "type": "number"
+        },
+        "usedSize": {
+          "type": "number"
+        },
+        "usedSizePercentage": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "countryZones",
+        "limitSizePercentage",
+        "limitSize",
+        "usedSize",
+        "usedSizePercentage"
+      ]
+    },
+    "AllowanceProductSpecification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "iconName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "AllowanceSubscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "currency": {
+          "$ref": "#/definitions/ISOCurrency"
+        },
+        "productSpecificationRef": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AllowanceProductSpecification"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "currency",
+        "name"
+      ]
+    },
+    "AllowancesConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AllowancesEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "AllowancesEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/AllowanceDetails"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "ApnProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "activationDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "apnType": {
+          "type": "string"
+        },
+        "ipAddressSpaces": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/IpAddressSpaces"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "customerId",
+        "name",
+        "state",
+        "apnType"
+      ]
+    },
+    "ApnProfilesListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApnProfilesListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "ApnProfilesListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/ApnProfile"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "AuthenticationPolicyInfo": {
+      "type": "object",
+      "properties": {
+        "internalRealm": {
+          "$ref": "#/definitions/RealmInfo"
+        },
+        "externalRealm": {
+          "$ref": "#/definitions/RealmInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "internalRealm",
+        "externalRealm"
+      ]
+    },
+    "AutoAcceptCondition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "autoAcceptConditionCheckState": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "autoAcceptConditionCheckState"
+      ]
+    },
+    "AvailableNonSharedAllowances": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "subscriptionId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "subscriptionId"
+      ]
+    },
+    "AvailableSharedAllowances": {
+      "type": "object",
+      "properties": {
+        "grantedAllowanceId": {
+          "type": "string"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "grantedAllowanceId"
+      ]
+    },
+    "BundleSize": {
+      "type": "object",
+      "properties": {
+        "dataBytes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "dataDuration": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "dataSessions": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "smsCalls": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "voiceCalls": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "voiceDuration": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "BusinessUnitDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/BusinessUnitId"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "BusinessUnitDetailsModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizationType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "businessSegment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deliveryAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "billingAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "legalIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegalIds"
+          }
+        },
+        "contactData": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ContactData"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "accountManager": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AccountManager"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "legalIds"
+      ]
+    },
+    "BusinessUnitInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "BusinessUnitsListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessUnitsListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "BusinessUnitsListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/BusinessUnitInfo"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "ConnectivityServicePlan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mobile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ContactData": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CostCenter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "CostCentersListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CostCentersListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "CostCentersListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/CostCenter"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "CurrentUserInfo": {
+      "type": "object",
+      "properties": {
+        "vendorId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vendorNamedId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "username": {
+          "type": "string"
+        },
+        "userId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/UserAccountId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "appId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ClientApplicationAccountId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accessCtx": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "privacyLevel": {
+          "$ref": "#/definitions/PrivacyLevel"
+        },
+        "privileges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "readOnly": {
+          "type": "boolean"
+        },
+        "enabledFeatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enabledApps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mutationsAccess": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldAccessInfo"
+          }
+        },
+        "queriesAccess": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldAccessInfo"
+          }
+        },
+        "mutationAccess": {
+          "$ref": "#/definitions/FieldAccessInfo"
+        },
+        "queryAccess": {
+          "$ref": "#/definitions/FieldAccessInfo"
+        },
+        "fieldAccess": {
+          "$ref": "#/definitions/FieldAccessInfo"
+        },
+        "fieldsAccess": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FieldAccessInfo"
+          }
+        },
+        "unreadGuiNotificationCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "authenticationPolicy": {
+          "$ref": "#/definitions/AuthenticationPolicyInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "username",
+        "accessCtx",
+        "privacyLevel",
+        "privileges",
+        "readOnly",
+        "enabledFeatures",
+        "enabledApps",
+        "mutationsAccess",
+        "queriesAccess",
+        "mutationAccess",
+        "queryAccess",
+        "fieldAccess",
+        "fieldsAccess",
+        "authenticationPolicy"
+      ]
+    },
+    "CustomAttr": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "CustomAttrConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomAttrEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "CustomAttrEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/CustomAttr"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "CustomAttrOutput": {
+      "type": "object",
+      "properties": {
+        "configId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f01": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f02": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f03": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f04": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f05": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f06": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f07": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f08": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f09": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "f10": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/CustomerId"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "CustomerAddress": {
+      "type": "object",
+      "properties": {
+        "addressLines": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "countryName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "addressLines",
+        "postalCode",
+        "city",
+        "countryName"
+      ]
+    },
+    "CustomerAgreementsIdModel": {
+      "type": "object",
+      "properties": {
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AgreementIdModel"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "edges"
+      ]
+    },
+    "CustomerDetailsModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizationType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "businessSegment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deliveryAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "billingAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "legalIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegalIds"
+          }
+        },
+        "contactData": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ContactData"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "accountManager": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AccountManager"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "legalIds"
+      ]
+    },
+    "CustomerInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "CustomerUsageProfile": {
+      "type": "object",
+      "properties": {
+        "currentState": {
+          "type": "string"
+        },
+        "dataLimits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataUsageLimit"
+          }
+        },
+        "voiceLimits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VoiceUsageLimit"
+          }
+        },
+        "smsLimits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SmsUsageLimit"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "currentState",
+        "dataLimits",
+        "voiceLimits",
+        "smsLimits"
+      ]
+    },
+    "Data": {
+      "type": "object",
+      "properties": {
+        "upLink": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "downLink": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DataUsageLimit": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "warn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsageLimitWarn"
+          }
+        },
+        "max": {
+          "$ref": "#/definitions/DataUsageLimitMax"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "warn",
+        "max"
+      ]
+    },
+    "DataUsageLimitMax": {
+      "type": "object",
+      "properties": {
+        "volume": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "duration": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "connections": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "connectionsFailed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DeliveryAddress": {
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "addressee": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "postalCode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "EProfile": {
+      "type": "object",
+      "properties": {
+        "eid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "smSrId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SmSrId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "$ref": "#/definitions/ESimState"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ESimRole"
+          }
+        },
+        "smDpAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SmDpAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "matchingId": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/MatchingId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "activationCode": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ActivationCode"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "roles"
+      ]
+    },
+    "FieldAccessInfo": {
+      "type": "object",
+      "properties": {
+        "parentType": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "exists": {
+          "type": "boolean"
+        },
+        "hasAccess": {
+          "type": "boolean"
+        },
+        "grantedRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requiredRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "parentType",
+        "fieldName",
+        "exists",
+        "hasAccess",
+        "grantedRoles",
+        "requiredRoles"
+      ]
+    },
+    "ImeiInfo": {
+      "type": "object",
+      "properties": {
+        "baseImei": {
+          "type": "string"
+        },
+        "imei": {
+          "type": "string"
+        },
+        "imeisv": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checkDigit": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "softwareVersionDigit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expectedDigit": {
+          "type": "integer"
+        },
+        "isValid": {
+          "type": "boolean"
+        },
+        "typeApprovalCode": {
+          "type": "string"
+        },
+        "serialNumber": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "baseImei",
+        "imei",
+        "expectedDigit",
+        "isValid",
+        "typeApprovalCode",
+        "serialNumber"
+      ]
+    },
+    "InstallationLocationAddress": {
+      "type": "object",
+      "properties": {
+        "addressLines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "adminUnits": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "countryIso": {
+          "$ref": "#/definitions/ISOCountry"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "addressLines",
+        "postalCode",
+        "city",
+        "countryIso"
+      ]
+    },
+    "InvoiceDownloadInfo": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "url"
+      ]
+    },
+    "InvoiceInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "InvoiceInfoListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoiceInfoListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "InvoiceInfoListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/InvoiceInfo"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "IpAddressSpaces": {
+      "type": "object",
+      "properties": {
+        "ipv4": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpConfiguration"
+          }
+        },
+        "ipv6": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpConfiguration"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ipv4",
+        "ipv6"
+      ]
+    },
+    "IpConfiguration": {
+      "type": "object",
+      "properties": {
+        "range": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "allowedAllocationTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "allowedAllocationTypes"
+      ]
+    },
+    "LastPortionStats": {
+      "type": "object",
+      "properties": {
+        "usage": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "upload": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "usage"
+      ]
+    },
+    "LastSessionDetails": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updateTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "location": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SessionLocation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upLink": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "downLink": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "ipAddressV4": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ipAddressV6Prefix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "imei": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "imeiInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ImeiInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "LegalIds": {
+      "type": "object",
+      "properties": {
+        "idType": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "idType",
+        "value"
+      ]
+    },
+    "NetworkSettings": {
+      "type": "object",
+      "properties": {
+        "apnName": {
+          "type": "string"
+        },
+        "allocationType": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/IpAllocationType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "staticIPv4Addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "staticIPv6Addresses": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "isDefault": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apnName"
+      ]
+    },
+    "NetworkSlice": {
+      "type": "object",
+      "properties": {
+        "snssai": {
+          "$ref": "#/definitions/Snssai"
+        },
+        "isDefault": {
+          "type": "boolean"
+        },
+        "defaultDnnName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "snssai",
+        "isDefault"
+      ]
+    },
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalRelation": {
+          "$ref": "#/definitions/TotalRelation"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "hasNextPage": {
+          "type": "boolean"
+        },
+        "hasPreviousPage": {
+          "type": "boolean"
+        },
+        "startCursor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "startPosition": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "endCursor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "endPosition": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "totalRelation",
+        "size",
+        "hasNextPage",
+        "hasPreviousPage"
+      ]
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "simChangeStatus": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangeDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simLastSessionDetails": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/LastSessionDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "customer": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerDetailsModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "accountBalance": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AccountBalanceModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agreementsId": {
+          "$ref": "#/definitions/CustomerAgreementsIdModel"
+        },
+        "businessUnit": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/BusinessUnitDetailsModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simOrderState": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimProfileOrderState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simModuleList": {
+          "$ref": "#/definitions/SimModuleListConnection"
+        },
+        "downloadInvoice": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/InvoiceDownloadInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "apnProfiles": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ApnProfilesListConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simDetails": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simList": {
+          "$ref": "#/definitions/SimsDetailsConnection"
+        },
+        "serviceProfileList": {
+          "$ref": "#/definitions/ServiceProfilesConnection"
+        },
+        "simChangeList": {
+          "$ref": "#/definitions/SimChangesConnection"
+        },
+        "simSessionHistory": {
+          "$ref": "#/definitions/SessionUsagePortionsConnection"
+        },
+        "costCentersList": {
+          "$ref": "#/definitions/CostCentersListConnection"
+        },
+        "businessUnitsList": {
+          "$ref": "#/definitions/BusinessUnitsListConnection"
+        },
+        "monitoringProfiles": {
+          "$ref": "#/definitions/UsageProfilesListConnection"
+        },
+        "simCustomAttributeSets": {
+          "$ref": "#/definitions/CustomAttrConnection"
+        },
+        "simOrderList": {
+          "$ref": "#/definitions/SimProfileOrderListConnection"
+        },
+        "invoiceList": {
+          "$ref": "#/definitions/InvoiceInfoListConnection"
+        },
+        "systemVersion": {
+          "$ref": "#/definitions/SystemVersion"
+        },
+        "currentUser": {
+          "$ref": "#/definitions/CurrentUserInfo"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "agreementsId",
+        "simModuleList",
+        "simList",
+        "serviceProfileList",
+        "simChangeList",
+        "simSessionHistory",
+        "costCentersList",
+        "businessUnitsList",
+        "monitoringProfiles",
+        "simCustomAttributeSets",
+        "simOrderList",
+        "invoiceList",
+        "systemVersion",
+        "currentUser"
+      ]
+    },
+    "RealmInfo": {
+      "type": "object",
+      "properties": {
+        "otpConfigRequirement": {
+          "type": "string"
+        },
+        "loginConfigEmailAsUsername": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "internalRegistrationEnabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "registrationConfigExternalUsers": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "otpConfigRequirement"
+      ]
+    },
+    "RoamingSettings": {
+      "type": "object",
+      "properties": {
+        "dataRoaming": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "smsMoRoaming": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "voiceRoaming": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ServiceProfileDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ServiceProfileId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "connectivityServicePlans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConnectivityServicePlan"
+          }
+        },
+        "simRefs": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimsConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "connectivityServicePlans"
+      ]
+    },
+    "ServiceProfilesConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServiceProfilesEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "ServiceProfilesEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/ServiceProfileDetails"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SessionLocation": {
+      "type": "object",
+      "properties": {
+        "mcc": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "mnc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lac": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "cell": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SessionUsage": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/definitions/SessionState"
+        },
+        "portionStats": {
+          "$ref": "#/definitions/LastPortionStats"
+        },
+        "ggsnIpAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sgsnAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sessionStartTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sessionEndTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updateTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "location": {
+          "$ref": "#/definitions/SessionLocation"
+        },
+        "apnName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "upLink": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "downLink": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "ipAddressV4": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ipAddressV6Prefix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "imei": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "usage": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "serviceType": {
+          "$ref": "#/definitions/CellularServiceType"
+        },
+        "technologyType": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/RatType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subscriptionName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "msisdn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "duration": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "terminationReason": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SessionStopReason"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "imeiInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ImeiInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "sessionId",
+        "state",
+        "portionStats",
+        "location",
+        "serviceType"
+      ]
+    },
+    "SessionUsagePortionsConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SessionUsagePortionsEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "SessionUsagePortionsEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/SessionUsage"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SimCardInfo": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "iccid": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi",
+        "iccid"
+      ]
+    },
+    "SimChangeDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "simId": {
+          "type": "string"
+        },
+        "requestedTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "changeType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimChangeType"
+          }
+        },
+        "state": {
+          "$ref": "#/definitions/SimChangeState"
+        },
+        "completionTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "creationTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "simId",
+        "changeType",
+        "state"
+      ]
+    },
+    "SimChangesConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimChangesEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "SimChangesEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/SimChangeDetails"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SimDetails": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "msisdn": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "imei": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "caption": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customer": {
+          "$ref": "#/definitions/Customer"
+        },
+        "usageProfile": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/CustomerUsageProfile"
+          }
+        },
+        "customAttributes": {
+          "$ref": "#/definitions/CustomAttrOutput"
+        },
+        "businessUnit": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/BusinessUnitDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simSettings": {
+          "$ref": "#/definitions/SimServicesSettings"
+        },
+        "status": {
+          "$ref": "#/definitions/SimState"
+        },
+        "apns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NetworkSettings"
+          }
+        },
+        "networkSlices": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/NetworkSlice"
+          }
+        },
+        "activationDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "usageAllowances": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/UsageAllowance"
+          }
+        },
+        "availableSharedAllowances": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/AvailableSharedAllowances"
+          }
+        },
+        "availableNonSharedAllowances": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/AvailableNonSharedAllowances"
+          }
+        },
+        "pin1": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pin2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "puk1": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "puk2": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "eProfile": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/EProfile"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "roamingSettings": {
+          "$ref": "#/definitions/RoamingSettings"
+        },
+        "usageInformation": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/UsageInformation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "installLocation": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/InstallationLocationAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lastSessionDetails": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/LastSessionDetails"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "simChangesRefs": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimChangesConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "allowances": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AllowancesConnection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "imeiInfo": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ImeiInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi",
+        "iccid",
+        "labels",
+        "customer",
+        "customAttributes",
+        "simSettings",
+        "status",
+        "apns",
+        "roamingSettings"
+      ]
+    },
+    "SimInfo": {
+      "type": "object",
+      "properties": {
+        "imsi": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "iccid": {
+          "type": [
+            "string",
+            "integer",
+            "null"
+          ]
+        },
+        "caption": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "$ref": "#/definitions/SimState"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "installLocation": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/InstallationLocationAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "imsi",
+        "iccid",
+        "status",
+        "labels"
+      ]
+    },
+    "SimModule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "packageSizes": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "SimModuleListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimModuleListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "SimModuleListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/SimModule"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SimProduct": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unitSubscriptionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "formFactor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tempClass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "materialNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unitType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "packageSize": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "packageQuantity": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "pricePerSim": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "simCardsOrdered": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "simCardsDelivered": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimProfileOrder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "prettyId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agreementId": {
+          "type": "string"
+        },
+        "businessUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdForBusinessUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "orderAlias": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "simProduct": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimProduct"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deliveryAddress": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DeliveryAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "customer": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/CustomerInfo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "trackingNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "acceptanceSettings": {
+          "$ref": "#/definitions/AcceptanceSettings"
+        },
+        "simList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimCardInfo"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "agreementId",
+        "status",
+        "acceptanceSettings",
+        "simList"
+      ]
+    },
+    "SimProfileOrderListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimProfileOrderListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "SimProfileOrderListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/SimProfileOrder"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SimProfileOrderState": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string"
+        },
+        "prettyId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "state"
+      ]
+    },
+    "SimServicesSettings": {
+      "type": "object",
+      "properties": {
+        "dataService": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "smsMoService": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "smsMtService": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "voiceIncomingService": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "voiceOutgoingService": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SimCellularServiceState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimsConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimsEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "SimsDetailsConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SimsDetailsEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "SimsDetailsEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/SimDetails"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SimsEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/SimInfo"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "SmsUsageLimit": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "warn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsageLimitWarn"
+          }
+        },
+        "max": {
+          "$ref": "#/definitions/SmsUsageLimitMax"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "warn",
+        "max"
+      ]
+    },
+    "SmsUsageLimitMax": {
+      "type": "object",
+      "properties": {
+        "volume": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Snssai": {
+      "type": "object",
+      "properties": {
+        "serviceType": {
+          "$ref": "#/definitions/SnssaiServiceType"
+        },
+        "serviceDifferentiator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "serviceTypeNum": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "serviceType",
+        "serviceTypeNum"
+      ]
+    },
+    "SystemVersion": {
+      "type": "object",
+      "properties": {
+        "appName": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "buildVersion": {
+          "type": "string"
+        },
+        "buildDate": {
+          "type": "string"
+        },
+        "gitHeadRev": {
+          "type": "string"
+        },
+        "gitCommitDate": {
+          "type": "string"
+        },
+        "gitBranch": {
+          "type": "string"
+        },
+        "envName": {
+          "type": "string"
+        },
+        "envType": {
+          "$ref": "#/definitions/EnvironmentType"
+        },
+        "envFeatures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "appName",
+        "version",
+        "buildVersion",
+        "buildDate",
+        "gitHeadRev",
+        "gitCommitDate",
+        "gitBranch",
+        "envName",
+        "envType",
+        "envFeatures"
+      ]
+    },
+    "UsageAllowance": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "service": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsageServiceType"
+          }
+        },
+        "bundleType": {
+          "$ref": "#/definitions/UsageAllowanceType"
+        },
+        "volume": {
+          "$ref": "#/definitions/BundleSize"
+        },
+        "volumePrice": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "service",
+        "bundleType",
+        "volume"
+      ]
+    },
+    "UsageInformation": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "data"
+      ]
+    },
+    "UsageLimitWarn": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer"
+        },
+        "severity": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "severity"
+      ]
+    },
+    "UsageProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "UsageProfilesListConnection": {
+      "type": "object",
+      "properties": {
+        "pageInfo": {
+          "$ref": "#/definitions/PageInfo"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsageProfilesListEdge"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pageInfo",
+        "edges"
+      ]
+    },
+    "UsageProfilesListEdge": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "$ref": "#/definitions/UsageProfile"
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "cursorPosition": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "node",
+        "cursor",
+        "cursorPosition"
+      ]
+    },
+    "VoiceUsageLimit": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "warn": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UsageLimitWarn"
+          }
+        },
+        "max": {
+          "$ref": "#/definitions/VoiceUsageLimitMax"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "warn",
+        "max"
+      ]
+    },
+    "VoiceUsageLimitMax": {
+      "type": "object",
+      "properties": {
+        "volume": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "duration": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "connections": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        },
+        "amount": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "connectionsFailed": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ActivatedSimState": {
+      "type": "string",
+      "enum": [
+        "Test",
+        "Live",
+        "Sleep",
+        "Inventory"
+      ]
+    },
+    "ExpectedSimProfileState": {
+      "type": "string",
+      "enum": [
+        "Inactive",
+        "Ready",
+        "Test",
+        "Inventory",
+        "Live",
+        "Sleep",
+        "Archived",
+        "Replaced"
+      ]
+    },
+    "FinishInventorySimState": {
+      "type": "string",
+      "enum": [
+        "Live",
+        "Sleep"
+      ]
+    },
+    "FinishReadySimState": {
+      "type": "string",
+      "enum": [
+        "Live",
+        "Test",
+        "Sleep",
+        "Inventory"
+      ]
+    },
+    "FinishTestSimState": {
+      "type": "string",
+      "enum": [
+        "Live",
+        "Sleep",
+        "Inventory"
+      ]
+    },
+    "SimResetStatus": {
+      "type": "string",
+      "enum": [
+        "Created",
+        "Completed",
+        "Failed"
+      ]
+    },
+    "SimRestriction": {
+      "type": "string",
+      "enum": [
+        "LostSim",
+        "Malfunction"
+      ]
+    },
+    "TestsCompletedSimState": {
+      "type": "string",
+      "enum": [
+        "Live",
+        "Sleep",
+        "Inventory"
+      ]
+    },
+    "AllocationType": {
+      "type": "string",
+      "enum": [
+        "Static",
+        "Dynamic"
+      ]
+    },
+    "AllowanceServiceType": {
+      "type": "string",
+      "enum": [
+        "Data",
+        "VoiceMo",
+        "SmsMo",
+        "CSD"
+      ]
+    },
+    "AllowanceShareMode": {
+      "type": "string",
+      "enum": [
+        "NonShared",
+        "Shared",
+        "Pooled"
+      ]
+    },
+    "ApnType": {
+      "type": "string",
+      "enum": [
+        "Public",
+        "Private",
+        "ApnShare",
+        "Share"
+      ]
+    },
+    "CellularServiceType": {
+      "type": "string",
+      "enum": [
+        "Data",
+        "VoiceIncoming",
+        "VoiceOutgoing",
+        "SmsMobileOriginated",
+        "SmsMobileTerminated",
+        "SmsDeliveryReport",
+        "SmsMobileOriginatedAppTerminated",
+        "CSD"
+      ]
+    },
+    "ConnectivityAllowanceLevel": {
+      "type": "string",
+      "enum": [
+        "Shared",
+        "SimLevel",
+        "SharedPooled"
+      ]
+    },
+    "ESimRole": {
+      "type": "string",
+      "enum": [
+        "Provisioning",
+        "Operational",
+        "Fallback",
+        "Emergency",
+        "Test"
+      ]
+    },
+    "ESimState": {
+      "type": "string",
+      "enum": [
+        "Available",
+        "Assigned",
+        "Enabled",
+        "Disabled"
+      ]
+    },
+    "EnvironmentType": {
+      "type": "string",
+      "enum": [
+        "Development",
+        "Testing",
+        "SystemIntegration",
+        "UserAcceptance",
+        "Staging",
+        "PreProduction",
+        "Production",
+        "Unknown"
+      ]
+    },
+    "ISOCountry": {
+      "type": "string",
+      "enum": [
+        "TW",
+        "CL",
+        "AT",
+        "BY",
+        "BG",
+        "NL",
+        "LT",
+        "MY",
+        "MG",
+        "LB",
+        "ES",
+        "PS",
+        "BD",
+        "CI",
+        "MV",
+        "BV",
+        "MD",
+        "PA",
+        "NI",
+        "DK",
+        "SM",
+        "HM",
+        "IR",
+        "GH",
+        "GE",
+        "FR",
+        "RW",
+        "RE",
+        "PM",
+        "SJ",
+        "KG",
+        "IO",
+        "GW",
+        "TO",
+        "SG",
+        "TL",
+        "CA",
+        "AI",
+        "BN",
+        "LI",
+        "MN",
+        "IL",
+        "SY",
+        "UN",
+        "AX",
+        "MK",
+        "AF",
+        "NP",
+        "XK",
+        "WF",
+        "VA",
+        "BZ",
+        "PE",
+        "EE",
+        "CM",
+        "PW",
+        "BH",
+        "MZ",
+        "AU",
+        "LC",
+        "MH",
+        "LU",
+        "FJ",
+        "DO",
+        "PT",
+        "MW",
+        "GL",
+        "ET",
+        "HN",
+        "IS",
+        "GI",
+        "SN",
+        "BR",
+        "AM",
+        "KZ",
+        "KH",
+        "HK",
+        "SK",
+        "GF",
+        "SZ",
+        "MO",
+        "KW",
+        "KE",
+        "IM",
+        "VE",
+        "BO",
+        "TM",
+        "AG",
+        "BL",
+        "ML",
+        "LY",
+        "CN",
+        "PF",
+        "ZA",
+        "GP",
+        "FK",
+        "HR",
+        "IE",
+        "GM",
+        "SR",
+        "EC",
+        "IT",
+        "TT",
+        "UY",
+        "UG",
+        "SO",
+        "AQ",
+        "AN",
+        "MS",
+        "MA",
+        "KI",
+        "IQ",
+        "SL",
+        "VI",
+        "CX",
+        "CF",
+        "BS",
+        "NF",
+        "BA",
+        "NU",
+        "NC",
+        "LK",
+        "MP",
+        "CU",
+        "US",
+        "DZ",
+        "CC",
+        "UA",
+        "MM",
+        "VU",
+        "GT",
+        "GB",
+        "FO",
+        "DE",
+        "BM",
+        "CR",
+        "ZW",
+        "NR",
+        "NO",
+        "SV",
+        "GQ",
+        "SD",
+        "EG",
+        "PG",
+        "PY",
+        "KP",
+        "GN",
+        "SA",
+        "TF",
+        "FI",
+        "SS",
+        "ME",
+        "KM",
+        "UZ",
+        "AR",
+        "BW",
+        "BE",
+        "TC",
+        "_U",
+        "LR",
+        "JE",
+        "TR",
+        "CY",
+        "BB",
+        "CG",
+        "AO",
+        "BT",
+        "NG",
+        "MT",
+        "KY",
+        "VG",
+        "QA",
+        "BQ",
+        "CV",
+        "CD",
+        "AL",
+        "MQ",
+        "PN",
+        "GU",
+        "RU",
+        "PK",
+        "SH",
+        "NA",
+        "TJ",
+        "FM",
+        "GR",
+        "SE",
+        "EH",
+        "PH",
+        "JO",
+        "HT",
+        "TG",
+        "ST",
+        "AD",
+        "SB",
+        "BI",
+        "LV",
+        "RO",
+        "WS",
+        "ID",
+        "VN",
+        "TV",
+        "TD",
+        "CK",
+        "BF",
+        "MX",
+        "AS",
+        "MF",
+        "KN",
+        "LS",
+        "LA",
+        "CH",
+        "DM",
+        "PR",
+        "ER",
+        "CZ",
+        "OM",
+        "NZ",
+        "MU",
+        "MC",
+        "ZM",
+        "GG",
+        "YE",
+        "CW",
+        "DJ",
+        "NE",
+        "GY",
+        "MR",
+        "IN",
+        "SI",
+        "GD",
+        "TN",
+        "PL",
+        "YT",
+        "GA",
+        "TK",
+        "RS",
+        "SX",
+        "GS",
+        "AZ",
+        "JP",
+        "VC",
+        "HU",
+        "TZ",
+        "SC",
+        "BJ",
+        "TH",
+        "CO",
+        "AW",
+        "AE",
+        "KR",
+        "UM",
+        "JM"
+      ]
+    },
+    "ISOCurrency": {
+      "type": "string",
+      "enum": [
+        "FKP",
+        "MVR",
+        "JMD",
+        "GBP",
+        "AMD",
+        "XPD",
+        "RSD",
+        "HUF",
+        "EUR",
+        "TWD",
+        "LYD",
+        "BYN",
+        "THB",
+        "RWF",
+        "KWD",
+        "NZD",
+        "MZN",
+        "IDR",
+        "KMF",
+        "XBB",
+        "MXV",
+        "PKR",
+        "TOP",
+        "CRC",
+        "CDF",
+        "SCR",
+        "GHS",
+        "COU",
+        "XCD",
+        "EGP",
+        "CHW",
+        "CHE",
+        "PGK",
+        "CAD",
+        "JPY",
+        "IQD",
+        "XOF",
+        "TRY",
+        "PHP",
+        "BTN",
+        "MKD",
+        "TJS",
+        "ISK",
+        "ETB",
+        "HNL",
+        "CLP",
+        "USN",
+        "SHP",
+        "GYD",
+        "MMK",
+        "SAR",
+        "SSP",
+        "KZT",
+        "BOB",
+        "ANG",
+        "BDT",
+        "SLL",
+        "BIF",
+        "XBC",
+        "BGN",
+        "LRD",
+        "DJF",
+        "CHF",
+        "CUP",
+        "MDL",
+        "KES",
+        "SEK",
+        "FJD",
+        "DKK",
+        "NGN",
+        "UZS",
+        "AWG",
+        "ERN",
+        "HKD",
+        "LKR",
+        "AOA",
+        "BND",
+        "MUR",
+        "KRW",
+        "STD",
+        "DZD",
+        "XSU",
+        "VEF",
+        "ZMW",
+        "ZAR",
+        "QAR",
+        "GEL",
+        "CZK",
+        "INR",
+        "XBD",
+        "AUD",
+        "MOP",
+        "DOP",
+        "KPW",
+        "UYU",
+        "SGD",
+        "TTD",
+        "SRD",
+        "BRL",
+        "XFU",
+        "PAB",
+        "BWP",
+        "SVC",
+        "USD",
+        "NAD",
+        "WST",
+        "CLF",
+        "VUV",
+        "GMD",
+        "USS",
+        "BAM",
+        "MWK",
+        "XAF",
+        "NPR",
+        "PLN",
+        "GNF",
+        "RUB",
+        "AED",
+        "MYR",
+        "KGS",
+        "BZD",
+        "XAU",
+        "AZN",
+        "BOV",
+        "CNY",
+        "SBD",
+        "XDR",
+        "CUC",
+        "TZS",
+        "IRR",
+        "XPT",
+        "UGX",
+        "CVE",
+        "KHR",
+        "XTS",
+        "ALL",
+        "OMR",
+        "BBD",
+        "BMD",
+        "ILS",
+        "VND",
+        "SYP",
+        "PYG",
+        "COP",
+        "MXN",
+        "XAG",
+        "NOK",
+        "GIP",
+        "PEN",
+        "XPF",
+        "MRO",
+        "XXX",
+        "LSL",
+        "BHD",
+        "NIO",
+        "BSD",
+        "HRK",
+        "SZL",
+        "MAD",
+        "LAK",
+        "LBP",
+        "ZWL",
+        "UAH",
+        "SDG",
+        "XBA",
+        "TMT",
+        "ARS",
+        "AFN",
+        "JOD",
+        "RON",
+        "XUA",
+        "YER",
+        "SOS",
+        "MNT",
+        "TND",
+        "KYD",
+        "HTG",
+        "GTQ",
+        "UYI",
+        "MGA"
+      ]
+    },
+    "IpAllocationType": {
+      "type": "string",
+      "enum": [
+        "Dynamic",
+        "Static"
+      ]
+    },
+    "PrivacyLevel": {
+      "type": "string",
+      "enum": [
+        "External",
+        "Confidential",
+        "Internal",
+        "Secret"
+      ]
+    },
+    "ProductLifecycleStage": {
+      "type": "string",
+      "enum": [
+        "Ready",
+        "Sleep",
+        "Live",
+        "Inventory",
+        "Test"
+      ]
+    },
+    "RatType": {
+      "type": "string",
+      "enum": [
+        "UTRAN",
+        "GERAN",
+        "WLAN",
+        "GAN",
+        "HSPA_Evolution",
+        "EUTRAN",
+        "Virtual",
+        "EUTRAN_NB_IoT",
+        "LTE_M",
+        "NR",
+        "NG_RAN",
+        "IEEE_802_16e",
+        "RT_3GPP2_eHRPD",
+        "RT_3GPP2_HRPD",
+        "RT_3GPP2_1xRTT",
+        "RT_3GPP2_UMB",
+        "UNRECOGNIZED_V2_TYPE",
+        "UNRECOGNIZED_TYPE",
+        "PCC_GERAN",
+        "PCC_UTRAN",
+        "PCC_EUTRAN",
+        "PCC_eHRPD",
+        "PCC_HRPD",
+        "PCC_CDMA200_1X",
+        "PCC_UMB",
+        "PCC_EUTRAN_NB_IoT",
+        "PCC_GAN",
+        "PCC_HSPA_EVOLUTION",
+        "EUTRAN_LEO",
+        "EUTRAN_MEO",
+        "EUTRAN_GEO",
+        "EUTRAN_NB_IoT_LEO",
+        "EUTRAN_NB_IoT_MEO",
+        "EUTRAN_NB_IoT_GEO",
+        "EUTRAN_NB_IoT_OTHERSAT",
+        "EUTRAN_OTHERSAT",
+        "LTE_M_LEO",
+        "LTE_M_MEO",
+        "LTE_M_GEO",
+        "LTE_M_OTHERSAT"
+      ]
+    },
+    "SessionState": {
+      "type": "string",
+      "enum": [
+        "NotStarted",
+        "Rejected",
+        "Ongoing",
+        "Terminated",
+        "Dropped",
+        "Sent",
+        "DeliveredOK",
+        "ExpiredBeforeDelivery",
+        "ManuallyDeletedBeforeDelivery",
+        "SystemError",
+        "InvalidCalledNumber",
+        "ManuallyAcceptedBeforeDelivery",
+        "Stale",
+        "TimedOut"
+      ]
+    },
+    "SessionStopReason": {
+      "type": "string",
+      "enum": [
+        "DiameterLogout",
+        "DiameterServiceNotProvided",
+        "DiameterBadAnswer",
+        "DiameterAdministrative",
+        "DiameterLinkBroken",
+        "DiameterAuthExpired",
+        "DiameterUserMoved",
+        "DiameterSessionTimeout",
+        "UserRequest",
+        "LostCarrier",
+        "LostService",
+        "IdleTimeout",
+        "SessionTimeout",
+        "AdminReset",
+        "AdminReboot",
+        "PortError",
+        "NASError",
+        "NASRequest",
+        "NASReboot",
+        "PortUnneeded",
+        "PortPreempted",
+        "PortSuspended",
+        "ServiceUnavailable",
+        "Callback",
+        "UserError",
+        "HostRequest",
+        "SupplicantRestart",
+        "ReauthenticationFailure",
+        "PortReinitialized",
+        "PortAdministrativelyDisabled",
+        "Other",
+        "ScmTimeout"
+      ]
+    },
+    "SimCellularServiceState": {
+      "type": "string",
+      "enum": [
+        "Blocked",
+        "Disabled",
+        "Enabled"
+      ]
+    },
+    "SimChangeState": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "InProgress",
+        "Completed",
+        "Failed",
+        "Cancelled",
+        "Expired",
+        "LimitsVerified"
+      ]
+    },
+    "SimChangeType": {
+      "type": "string",
+      "enum": [
+        "Activated",
+        "AuthCredentialsChanged",
+        "NetworkBehindMobileChanged",
+        "AuthDisabled",
+        "AuthEnabled",
+        "ApnChanged",
+        "ApnQoSChanged",
+        "CustomerUnitChanged",
+        "DataBlocked",
+        "DataUnblocked",
+        "EnabledSimProfileChanged",
+        "ImeiLinked",
+        "ImeiLocked",
+        "ImeiUnlinked",
+        "ImeiUnlocked",
+        "LiveStarted",
+        "NetworkTechnologyChanged",
+        "PutToSleep",
+        "ServiceProfileChanged",
+        "SmsIntBlocked",
+        "SmsIntUnblocked",
+        "SmsMoBlocked",
+        "SmsMoUnblocked",
+        "SmsMtBlocked",
+        "SmsMtUnblocked",
+        "Terminated",
+        "TerminationReady",
+        "TerminationStarted",
+        "TestsStarted",
+        "VoiceInBlocked",
+        "VoiceIntBlocked",
+        "VoiceIntUnblocked",
+        "VoiceInUnblocked",
+        "VoiceOutBlocked",
+        "VoiceOutUnblocked",
+        "ReportingCodeChanged",
+        "RestrictionsApplied",
+        "RestrictionsRemoved",
+        "StaticIpAssigned",
+        "StaticIpUnassigned",
+        "AssignedCustomerUsageProfile",
+        "AssignedVendorUsageProfile",
+        "UnassignedCustomerUsageProfile",
+        "UnassignedVendorUsageProfile",
+        "ESimProfileEnabled",
+        "ESimProfileDisabled",
+        "ESimProfileDeleted",
+        "ESimProfileDownloaded",
+        "PutToInventory",
+        "ImeiWhiteListAssigned",
+        "ImeiWhiteListUnassigned",
+        "VoluntarySuspensionRemoved",
+        "ConnectivityServicePlanChanged",
+        "AssignedSessionControlProfile",
+        "AssignedToCostCenter",
+        "AssignedToEndConsumer",
+        "AssignedToTaxJurisdiction",
+        "AssignedToVendorRegion",
+        "BillingAccountChanged",
+        "BillingCycleChanged",
+        "ContractedToChanged",
+        "ContractedToClearedChanged",
+        "ExplicitHomeCountriesCleared",
+        "ExplicitHomeCountriesDefined",
+        "ImeiWhiteListUpdated",
+        "SimCardReplaced",
+        "SimCardReplacedBy",
+        "UnassignedFromEndConsumer",
+        "UnassignedFromVendorRegion",
+        "UnassignedFromCostCenter",
+        "UnassignedFromTaxJurisdiction",
+        "ChangePricingTierAssignment",
+        "TerminationCancelled",
+        "TerminationFinished",
+        "TerminationReverted",
+        "MigrateIn",
+        "MigrateOut",
+        "DeviceCategoryAssigned",
+        "DeviceCategoryUnassigned",
+        "TransferIn",
+        "TransferOut",
+        "AddonsChanged",
+        "InactivityProfileAssigned",
+        "InactivityProfileUnassigned",
+        "AdditionalAllowanceAdded",
+        "AdditionalAllowanceRemoved",
+        "MSISDNChanged",
+        "FirstImeiActionChanged",
+        "LocationAddressAssigned",
+        "LocationAddressUnassigned",
+        "AssignedRestrictionsProfile",
+        "UnassignedRestrictionsProfile",
+        "VendorSimUsageRuleAssigned",
+        "VenadorSimUsageRuleUnassigned",
+        "VendorSimUsageRuleChanged",
+        "CustomerSimUsageRuleAssigned",
+        "CustomerSimUsageRuleUnassigned",
+        "CustomerSimUsageRuleChanged",
+        "VendorUsageProfileRuleDisabled",
+        "VendorUsageProfileRuleCustomizationRemoved",
+        "VendorUsageProfileRuleLimitIncreased",
+        "CustomerUsageProfileRuleDisabled",
+        "CustomerUsageProfileRuleCustomizationRemoved",
+        "CustomerUsageProfileRuleLimitIncreased",
+        "AdditionalProvisioning",
+        "ConnectivityServicePlanSynchronized",
+        "AssignedToCustomerRepresentative",
+        "UnassignedFromCustomerRepresentative",
+        "IpRedundancyEnabled",
+        "IpRedundancyDisabled",
+        "ModifiedCaption",
+        "ModifiedCustomerTags",
+        "ModifiedVendorTags",
+        "ModifiedVendorAttributes",
+        "ModifiedCustomerAttributes",
+        "NetworkServicesSynchronization"
+      ]
+    },
+    "SimState": {
+      "type": "string",
+      "enum": [
+        "Test",
+        "Live",
+        "Sleep",
+        "Terminated",
+        "Inactive",
+        "Archived",
+        "Inventory",
+        "TerminationReady",
+        "TestReady",
+        "Replaced",
+        "MigratedOut",
+        "InTransfer",
+        "Transferred",
+        "Returned"
+      ]
+    },
+    "SnssaiServiceType": {
+      "type": "string",
+      "enum": [
+        "eMBB",
+        "URLLC",
+        "MIoT",
+        "V2X",
+        "HMTC",
+        "NonStandard"
+      ]
+    },
+    "SortOrder": {
+      "type": "string",
+      "enum": [
+        "Asc",
+        "Desc"
+      ]
+    },
+    "TotalRelation": {
+      "type": "string",
+      "enum": [
+        "Eq",
+        "Gte"
+      ]
+    },
+    "UsageAllowanceType": {
+      "type": "string",
+      "enum": [
+        "Subscription",
+        "ResourcePooled",
+        "ResourceNotShared"
+      ]
+    },
+    "UsageServiceType": {
+      "type": "string",
+      "enum": [
+        "DataNational",
+        "DataRoaming",
+        "SmsMoDeliveryReceipt",
+        "SmsMoInternational",
+        "SmsMoNational",
+        "SmsMoRoaming",
+        "VoiceInRoaming",
+        "VoiceInternational",
+        "VoiceNational",
+        "VoiceOutRoaming"
+      ]
+    }
+  }
+}

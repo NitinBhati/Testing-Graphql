@@ -1,0 +1,4331 @@
+"""Make the field value available for other operations via variable."""
+directive @export(
+  """The variable name."""
+  as: String!
+) on FIELD
+
+enum ActivatedSimState {
+  """SIM under tests"""
+  Test
+
+  """SIM used under normal conditions"""
+  Live
+
+  """SIM temporarily not used"""
+  Sleep
+
+  """SIM is put into inventory, not used but not blocked"""
+  Inventory
+}
+
+"""Aggregates APN access settings parameters into one object."""
+input ApnAccessSettingsAdjustmentInput {
+  """Access Point Name assigned to the SIM"""
+  apnName: String!
+
+  """IP allocation strategy, see IpAllocationType"""
+  allocationType: IpAllocationType!
+  staticIPv4Address: String
+  staticIPv6Address: String
+
+  """Static IPv4 addresses"""
+  staticIPv4Addresses: [String!]
+
+  """Static IPv6 addresses"""
+  staticIPv6Addresses: [String!]
+}
+
+"""Aggregates SIM APN Authentication Setting into one object."""
+input ApnAuthSettingsAdjustmentInput {
+  """Access Point Name assigned to the SIM"""
+  apnName: String!
+
+  """Device authentication data"""
+  deviceAuth: DeviceAuthInput!
+}
+
+"""
+Aggregates SIM assign monitoring profile operation input parameters into one object.
+"""
+input AssignMonitoringProfileInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile IMSI Identifier"""
+  iccid: ICCID
+
+  """Monitoring profile to assign"""
+  monitoringProfileId: String
+}
+
+"""Aggregates cancel SIM order operation input into one object."""
+input CancelSimOrderInputInput {
+  """SIM order Identifier"""
+  id: String!
+
+  """Reason of canceling order"""
+  reason: String
+}
+
+"""Return information about submitted order"""
+type CancelSimOrderResult {
+  """SIM order ID"""
+  cancelSimOrder: CancelSimOrderResultInfo
+
+  """Created"""
+  created: Boolean!
+
+  """Updated"""
+  updated: Boolean!
+}
+
+"""Aggregates cancel SIM order operation output into one object."""
+type CancelSimOrderResultInfo {
+  """SIM order Identifier"""
+  id: String!
+
+  """Reason of canceling order"""
+  reason: String
+}
+
+"""
+Connectivity Service Plan Id - a string that uniquely identifies every Connectivity Service Plan created in IoTConnect Platform.
+"""
+scalar ConnectivityServicePlanId
+
+"""Aggregates create SIM order operation input into one object."""
+input CreateSimOrderInputInput {
+  """Agreement Identifier"""
+  agreementId: String
+
+  """Expected sim profiles in order"""
+  expectedSimProfiles: ExpectedSimProfilesInput!
+
+  """Addressee name"""
+  addresseeName: String!
+
+  """
+  Phone number with public line prefix(country code) +CC, eg. +49 1635551584
+  """
+  phoneNumber: String!
+
+  """Expected delivery address in order"""
+  expectedDeliveryAddress: ExpectedDeliveryAddressInput!
+}
+
+"""Return information about created order"""
+type CreateSimOrderResult {
+  """SIM order ID"""
+  id: String
+
+  """Created"""
+  created: Boolean!
+
+  """Updated"""
+  updated: Boolean!
+}
+
+"""Represent default APN/DNN replacement for other APN/DNN."""
+input DefaultApnReplacementInput {
+  """The name of APN/DNN to replace"""
+  apnToReplace: String!
+
+  """The new default APN/DNN name as replacement for replaceFrom"""
+  replaceWithApn: String
+}
+
+"""Aggregates device authorization input into one object."""
+input DeviceAuthInput {
+  """Name of an APN's user"""
+  username: String
+
+  """Password of an APN's user"""
+  password: String
+}
+
+"""Edit order alias"""
+input EditSimOrderAliasParamsInput {
+  """SIM order Identifier"""
+  id: String!
+
+  """Order alias"""
+  alias: String!
+}
+
+"""Edit order business unit"""
+input EditSimOrderBusinessUnitParamsInput {
+  """SIM order Identifier"""
+  id: String!
+
+  """Target business unit ID"""
+  businessUnitId: String!
+}
+
+"""Edit order delivery settings"""
+input EditSimOrderDeliveryParamsInput {
+  """SIM order Identifier"""
+  id: String!
+
+  """Addressee name"""
+  addresseeName: String
+
+  """
+  Phone number with public line prefix(country code) +CC, eg. +491635551584
+  """
+  phoneNumber: String
+
+  """Company name"""
+  companyName: String
+
+  """Expected delivery address in order"""
+  newDeliveryAddress: ExpectedDeliveryAddressInput
+}
+
+"""Aggregates edit SIM order operation input into one object."""
+input EditSimOrderParamsInput {
+  """SIM order Identifier"""
+  id: String!
+
+  """Expected changes in order"""
+  newExpected: NewExpectedSimProfilesInput!
+}
+
+"""Return information about edited order"""
+type EditSimOrderResult {
+  """SIM order ID"""
+  id: String
+
+  """Created"""
+  created: Boolean!
+
+  """Updated"""
+  updated: Boolean!
+}
+
+"""Aggregates new expected delivery address input into one object."""
+input ExpectedDeliveryAddressInput {
+  """
+  Country code (ISO 3166-1 alpha-2 format) for example "DE"
+  """
+  countryCode: String!
+
+  """Postal code"""
+  postalCode: String!
+
+  """City"""
+  city: String!
+
+  """Street"""
+  street: String!
+
+  """House number"""
+  houseNumber: String!
+
+  """Apartment number"""
+  apartmentNumber: String
+
+  """State"""
+  state: String
+
+  """Address Line 2"""
+  addressLine2: String
+}
+
+enum ExpectedSimProfileState {
+  """SIM is inactive"""
+  Inactive
+
+  """SIM is test ready"""
+  Ready
+
+  """SIM under tests"""
+  Test
+
+  """SIM is put into inventory, not used but not blocked"""
+  Inventory
+
+  """SIM used under normal conditions"""
+  Live
+
+  """SIM temporarily not used"""
+  Sleep
+
+  """SIM is archived"""
+  Archived
+
+  """SIM is replaced"""
+  Replaced
+}
+
+"""Aggregates new expected sim profiles input into one object."""
+input ExpectedSimProfilesInput {
+  """Quantity of ordered packages"""
+  packageQuantity: Int!
+
+  """Size of package"""
+  packageSize: Int!
+
+  """SIM Module ID"""
+  unitSubscriptionId: String!
+}
+
+enum FinishInventorySimState {
+  """SIM used under normal conditions"""
+  Live
+
+  """Customer decided to not use sim temporarily"""
+  Sleep
+}
+
+enum FinishReadySimState {
+  """SIM used under normal conditions"""
+  Live
+
+  """SIM is under tests"""
+  Test
+
+  """Customer decided to not use sim temporarily"""
+  Sleep
+
+  """SIM is put into inventory, not used but not blocked"""
+  Inventory
+}
+
+enum FinishTestSimState {
+  """SIM used under normal conditions"""
+  Live
+
+  """Customer decided to not use sim temporarily"""
+  Sleep
+
+  """SIM is put into inventory, not used but not blocked"""
+  Inventory
+}
+
+"""Aggregates SIM installation location parameters into one object."""
+input InstallationLocationAddressInput {
+  """address lines"""
+  addressLines: [String!]!
+
+  """Postal code"""
+  postalCode: String!
+
+  """City"""
+  city: String!
+
+  """State"""
+  adminUnits: [String!]
+
+  """Country Code"""
+  countryIso: ISOCountry!
+}
+
+type Mutation {
+  """Remove monitoring profile to SIM"""
+  simRemoveMonitoringProfile(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: UnassignMonitoringProfileInputInput!
+  ): SimChangeDetails
+
+  """Configure APNs (Access Point Names) used by the SIM."""
+  simConfigureApns(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimConfigureApnsInput!
+  ): SimChangeDetails
+
+  """Add Label to Sim."""
+  simAddLabels(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimLabelsInput!
+  ): SimLabelsChanges
+
+  """Remove Label from Sim."""
+  simRemoveLabels(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimLabelsInput!
+  ): SimLabelsChanges
+
+  """
+  Clear Labels from Sim. Either imsi or iccid parameter should be provided.
+  """
+  simClearLabels(
+    """SIM Profile IMSI Identifier"""
+    imsi: IMSI
+
+    """SIM Profile ICCID Identifier"""
+    iccid: ICCID
+  ): SimLabelsChanges
+
+  """Give SIM card a caption."""
+  simAssignCaption(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimAssignCaptionInput!
+  ): SimCaption
+
+  """
+  Remove SIM card's caption. Either imsi or iccid parameter should be provided.
+  """
+  simRemoveCaption(
+    """SIM Profile IMSI Identifier"""
+    imsi: IMSI
+
+    """SIM Profile ICCID Identifier"""
+    iccid: ICCID
+  ): SimCaption
+
+  """Change SIM state from Sleep To Live."""
+  simFinishSleep(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimFinishSleepInputInput!
+  ): SimChangeDetails
+
+  """Specify Service Profile (SIM services configuration) for SIM."""
+  simChangeServiceProfile(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimChangeServiceProfileInput!
+  ): SimChangeDetails
+
+  """Specify device that SIM is expected to be used by."""
+  simConfigureExpectedImei(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimConfigureExpectedImeiInput!
+  ): SimChangeDetails
+
+  """Change SIM state to Sleep."""
+  simSendToSleep(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimModifyStateInput!
+  ): SimChangeDetails @deprecated(reason: "use simStartSleep instead")
+
+  """Change SIM state to Inventory."""
+  simMoveToInventory(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimModifyStateInput!
+  ): SimChangeDetails @deprecated(reason: "Use simStartInventory instead")
+
+  """Finish the test stage of a SIM Card."""
+  simFinishTests(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimFinishTestsInput!
+  ): SimChangeDetails @deprecated(reason: "Use simFinishTest instead")
+
+  """Activate given SIM card using provided settings."""
+  simActivate(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimActivateInput!
+  ): SimChangeDetails
+
+  """Transfer SIM to business unit."""
+  simTransferToBusinessUnit(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimTransferToBusinessUnitInput!
+  ): SimChangeDetails
+
+  """Transfer inactive SIM to business unit."""
+  simTransferInactiveToBusinessUnit(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimTransferInactiveToBusinessUnitInput!
+  ): SimChangeDetails @deprecated(reason: "This API will be replaced by simTransferToBusinessUnit which will be able to transfer inactive sims")
+
+  """Edit SIM Profile custom attributes"""
+  simChangeCustomAttributes(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimChangeCustomAttrInputInput!
+  ): SimChangeCustomAttrOutput
+
+  """Add SIM allowances"""
+  simAddAllowances(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimAllowanceInputInput!
+  ): SimChangeDetails
+
+  """Remove selected Sim allowances"""
+  simRemoveAllowances(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimRemoveAllowanceInputInput!
+  ): SimChangeDetails
+
+  """Remove restrictions from given SIM card."""
+  simRemoveRestrictions(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimRestrictionsInput!
+  ): SimChangeDetails
+
+  """Apply restrictions to given SIM card."""
+  simApplyRestrictions(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimRestrictionsInput!
+  ): SimChangeDetails
+
+  """Set address where sim is expected to be used."""
+  simInstallationAddress(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimProfileLocationInputInput!
+  ): SimProfileLocation
+
+  """Assign cost center to SIM."""
+  simAssignToCostCenter(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimProfileCostCenterInputInput!
+  ): SimProfileCostCenter
+
+  """Specify APNs (Access Point Names) which should be updated fot the SIM."""
+  simUpdateAssignedApns(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimUpdateAssignedApnsInput!
+  ): SimChangeDetails
+
+  """
+  Specify APNs (Access Point Names) which should be included to the defined set for the SIM.
+  """
+  simAssignApns(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimConfigureApnsInput!
+  ): SimChangeDetails
+
+  """
+  Specify APNs (Access Point Names) which should be no longer used by the SIM.
+  """
+  simUnassignApns(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimUnassignApnsInput!
+  ): SimChangeDetails
+
+  """Specify authentication settings per APN or globally."""
+  simChangeApnsAuth(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimChangeApnsAuthSettingsInput!
+  ): SimChangeDetails
+
+  """
+  Specify settings associated with static IP addresses and the allocation type assigned to APN.
+  """
+  simChangeApnsIpSettings(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimChangeApnsAccessSettingsInput!
+  ): SimChangeDetails
+
+  """Terminate sim"""
+  simTerminate(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimTerminationInput!
+  ): SimChangeDetails
+
+  """
+  Forces a device off the network, causing it to re-register. Commonly used to correct network registration problems.
+  """
+  simReset(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimInput!
+  ): SimResetChange
+
+  """Replace target SIM settings with source SIM settings."""
+  simReplace(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimReplaceInput!
+  ): SimChangeDetails
+
+  """Assign monitoring profile to SIM"""
+  simAssignMonitoringProfile(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: AssignMonitoringProfileInputInput!
+  ): SimChangeDetails
+
+  """Finish the INVENTORY stage of a SIM Card."""
+  simFinishInventory(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimFinishInventoryInputInput!
+  ): SimChangeDetails
+
+  """Finish the READY stage of a SIM Card."""
+  simFinishReady(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimFinishReadyInputInput!
+  ): SimChangeDetails
+
+  """Finish the TEST stage of a SIM Card."""
+  simFinishTest(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimFinishTestInputInput!
+  ): SimChangeDetails
+
+  """Change SIM state to TEST"""
+  simStartTest(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimInput!
+  ): SimChangeDetails
+
+  """Change SIM state to INVENTORY"""
+  simStartInventory(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimInput!
+  ): SimChangeDetails
+
+  """Change SIM state to LIVE"""
+  simStartLive(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimInput!
+  ): SimChangeDetails
+
+  """Change SIM state to SLEEP"""
+  simStartSleep(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimInput!
+  ): SimChangeDetails
+
+  """Cancel SIM order"""
+  cancelSimOrder(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: CancelSimOrderInputInput!
+  ): CancelSimOrderResult!
+
+  """Submit SIM order"""
+  submitSimOrder(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SubmitSimOrderInputInput!
+  ): SubmitSimOrderResult!
+
+  """Create SIM order"""
+  createSimOrder(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: CreateSimOrderInputInput!
+  ): CreateSimOrderResult!
+
+  """Edit SIM order product"""
+  editSimOrderProduct(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: EditSimOrderParamsInput!
+  ): EditSimOrderResult!
+
+  """Edit SIM order delivery settings"""
+  editSimOrderDeliverySettings(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign..
+    """
+    input: EditSimOrderDeliveryParamsInput!
+  ): EditSimOrderResult!
+
+  """Edit SIM order alias"""
+  editSimOrderAlias(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: EditSimOrderAliasParamsInput!
+  ): EditSimOrderResult!
+
+  """Edit SIM order business unit """
+  editSimOrderBusinessUnit(input: EditSimOrderBusinessUnitParamsInput!): EditSimOrderResult!
+}
+
+"""Aggregates network setting input into one object."""
+input NetworkSettingsAdjustmentInput {
+  """Access Point Name assigned to the SIM"""
+  apnName: String!
+
+  """IP allocation strategy, see IpAllocationType"""
+  allocationType: IpAllocationType
+  staticIPv4Address: String
+  staticIPv6Address: String
+
+  """Static IPv4 addresses"""
+  staticIPv4Addresses: [String!]
+
+  """Static IPv6 addresses"""
+  staticIPv6Addresses: [String!]
+
+  """Device authentication data"""
+  deviceAuth: DeviceAuthInput
+
+  """Is the APN selected as the default APN for the SIM"""
+  isDefault: Boolean
+}
+
+"""Aggregates network setting input into one object."""
+input NetworkSliceAdjustmentInput {
+  """NetworkSlices SNSSAI"""
+  snssai: SnssaiInput!
+
+  """Default DNN for network slice"""
+  defaultDnnName: String
+}
+
+"""Aggregates new expected sim profiles input into one object."""
+input NewExpectedSimProfilesInput {
+  """Quantity of ordered packages"""
+  packageQuantity: Int!
+
+  """Size of package"""
+  packageSize: Int!
+
+  """SIM Module ID - You can find it using simModuleList query."""
+  unitSubscriptionId: String!
+}
+
+"""Aggregates none shared allowance configuration input into one object."""
+input NonSharedAllowanceConfigurationInput {
+  """Product subscription ID, which represent non shared allowance instance"""
+  subscriptionId: String!
+}
+
+"""
+Roaming Profile Id - a string that uniquely identifies every Roaming Profile created in IoTConnect Platform
+"""
+scalar RoamingProfileId
+
+"""Aggregates SIM activation operation input into one object."""
+input SimActivateInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Identifier of SIM services configuration"""
+  serviceProfileId: ServiceProfileId
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: ConnectivityServicePlanId
+
+  """
+  Parameter specifying state SIM should be activated in. Possible states are: Live, Test, Sleep, Inventory
+  """
+  state: ActivatedSimState
+
+  """Parameter specifying roaming settings"""
+  roamingProfileId: RoamingProfileId
+
+  """Shared Allowance IDs to be added to SIM Profile"""
+  sharedAllowanceId: [String!]
+
+  """NonShared Allowance configuration to be added to SIM Profile"""
+  nonSharedAllowanceConfig: [NonSharedAllowanceConfigurationInput!]
+
+  """
+  List of parameters describing network settings, see NetworkSettingsAdjustmentInput
+  """
+  networkSettings: [NetworkSettingsAdjustmentInput!]
+
+  """Network slices settings for SIM Profile"""
+  networkSlices: [NetworkSliceAdjustmentInput!]
+}
+
+"""Aggregates SIM allowance input parameters into one object."""
+input SimAllowanceInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Shared Allowance Identifier"""
+  shared: [String!]
+
+  """NonShared Allowance Configuration"""
+  nonShared: [NonSharedAllowanceConfigurationInput!]
+
+  """Timestamp when allowance becomes active"""
+  validFrom: OffsetDateTime
+}
+
+"""
+Aggregates SIM assign caption operation input parameters into one object.
+"""
+input SimAssignCaptionInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile Iccid Identifier"""
+  iccid: ICCID
+
+  """The caption to be assigned to SIM for more efficient management."""
+  caption: String!
+}
+
+"""
+Return information about assigned cption to the SIM identified by IMSI.
+"""
+type SimCaption {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """The caption to be assigned to SIM for more efficient management."""
+  caption: String
+}
+
+"""
+Aggregates SIM change APN access settings operation input parameters into one object.
+"""
+input SimChangeApnsAccessSettingsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  List of parameters describing APN access settings adjustment, see ApnAccessSettingsAdjustmentInput
+  """
+  apnsAccessSettings: [ApnAccessSettingsAdjustmentInput!]!
+}
+
+"""
+Aggregates SIM change APN authentication settings operation input parameters into one object.
+"""
+input SimChangeApnsAuthSettingsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  Parameter describing APN authentication settings adjustment used globally, see DeviceAuthInput
+  """
+  authSettings: DeviceAuthInput
+
+  """
+  List of parameters describing APN authentication settings adjustment, see ApnAuthSettingsAdjustmentInput
+  """
+  apnsAuthSettings: [ApnAuthSettingsAdjustmentInput!]
+}
+
+"""
+Aggregates SIM change custom attributes operation input parameters into one object.
+"""
+input SimChangeCustomAttrInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Custom Attributes Set Identifier"""
+  configId: String
+  tags: SimChangeCustomAttrTagInputInput
+  f01: SimChangeCustomAttrValueOpInput
+  f02: SimChangeCustomAttrValueOpInput
+  f03: SimChangeCustomAttrValueOpInput
+  f04: SimChangeCustomAttrValueOpInput
+  f05: SimChangeCustomAttrValueOpInput
+  f06: SimChangeCustomAttrValueOpInput
+  f07: SimChangeCustomAttrValueOpInput
+  f08: SimChangeCustomAttrValueOpInput
+  f09: SimChangeCustomAttrValueOpInput
+  f10: SimChangeCustomAttrValueOpInput
+  clearValues: Boolean
+}
+
+"""
+Return information about assigned custom attributes to the SIM identified by IMSI.
+"""
+type SimChangeCustomAttrOutput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """
+  Currently assigned custom attributes. To see full list attributes follow to the CustomAttrOutput type
+  """
+  customAttr: CustomAttrOutput!
+}
+
+"""
+Aggregates SIM change custom attributes tag input parameters into one object.
+"""
+input SimChangeCustomAttrTagInputInput {
+  """Indicates if all currently assigned attributes should be cleared."""
+  clear: Boolean
+
+  """Remove provided subset from currently assigned attributes."""
+  remove: [String!]
+
+  """Add provided subset to currently assigned attributes."""
+  add: [String!]
+}
+
+"""
+Aggregates SIM change custom attributes value operation input parameters into one object.
+"""
+input SimChangeCustomAttrValueOpInput {
+  """Indicates if all currently assigned attributes should be cleared."""
+  clear: Boolean
+
+  """Remove provided subset from currently assigned attributes."""
+  remove: [String!]
+
+  """Add provided subset to currently assigned attributes."""
+  add: [String!]
+}
+
+"""
+Aggregates SIM change service profile (sim state) operation input parameters into one object.
+"""
+input SimChangeServiceProfileInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Identifier of SIM services configuration"""
+  serviceProfileId: ServiceProfileId!
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: ConnectivityServicePlanId
+
+  """Sim profile state"""
+  expectedState: ExpectedSimProfileState
+}
+
+"""
+Aggregates SIM configure APN operation input parameters into one object.
+"""
+input SimConfigureApnsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  List of parameters describing network settings, see NetworkSettingsInput
+  """
+  networkSettings: [NetworkSettingsAdjustmentInput!]!
+
+  """Network slices settings for SIM Profile"""
+  networkSlices: [NetworkSliceAdjustmentInput!]
+}
+
+"""
+Aggregates SIM configure expected IMEI operation input parameters into one object.
+"""
+input SimConfigureExpectedImeiInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Expected device IMEI the SIM should work with"""
+  imei: IMEI!
+
+  """
+  Indicates whether sim is allowed to be only used in one specified (by IMEI) device
+  """
+  imeiLock: Boolean!
+}
+
+"""
+Aggregates SIM finish INVENTORY operation input parameters into one object.
+"""
+input SimFinishInventoryInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  Parameter specifying lifecycle phase SIM should be in after INVENTORY finished. Possible lifecycle phases are: Live, Sleep
+  """
+  stage: FinishInventorySimState
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: String
+}
+
+"""
+Aggregates SIM finish READY operation input parameters into one object.
+"""
+input SimFinishReadyInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  Parameter specifying lifecycle phase SIM should be in after READY finished. Possible lifecycle phases are: Live, Test, Sleep, Inventory
+  """
+  stage: FinishReadySimState
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: String
+}
+
+input SimFinishSleepInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: String
+}
+
+"""Aggregates SIM finish TEST operation input parameters into one object."""
+input SimFinishTestInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  Parameter specifying lifecycle phase SIM should be in after TEST finished. Possible lifecycle phases are: Live, Sleep, Inventory
+  """
+  stage: FinishTestSimState
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: String
+}
+
+"""
+Aggregates SIM finish tests operation input parameters into one object.
+"""
+input SimFinishTestsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  Parameter specifying lifecycle phase SIM should be in after tests finished. Possible lifecycle phases are: Live, Sleep, Inventory
+  """
+  stage: TestsCompletedSimState
+
+  """Identifier of SIM services configuration"""
+  serviceProfileId: ServiceProfileId
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: ConnectivityServicePlanId
+}
+
+"""Aggregates SIM identifiers parameters into one object."""
+input SimInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+}
+
+"""
+Return information about assigned labels to the SIM identified by IMSI.
+"""
+type SimLabelsChanges {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """Actual sim Labels"""
+  labels: [String!]!
+}
+
+"""Aggregates SIM label operation input parameters into one object."""
+input SimLabelsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile IMSI Identifier"""
+  iccid: ICCID
+
+  """The label/labels that you want to modify."""
+  label: [String!]!
+}
+
+"""
+Aggregates SIM modify state operation input parameters into one object.
+"""
+input SimModifyStateInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Parameter specifying service profile which is assigned to SIM"""
+  serviceProfileId: ServiceProfileId
+
+  """Identifier of SIM services configuration"""
+  connectivityPlanId: ConnectivityServicePlanId
+}
+
+"""
+Return information about assigned cost center to the SIM identified by IMSI.
+"""
+type SimProfileCostCenter {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """Cost center Identifier"""
+  costCenterId: String
+}
+
+"""
+Aggregates SIM assign cost center operation input parameters into one object.
+"""
+input SimProfileCostCenterInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Cost center Identifier"""
+  costCenterId: String!
+}
+
+"""
+Return information about assigned location to the SIM identified by IMSI.
+"""
+type SimProfileLocation {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """Address of sim where it is expected to be used"""
+  installLocation: InstallationLocationAddress
+}
+
+"""
+Aggregates SIM configure profile location operation input parameters into one object.
+"""
+input SimProfileLocationInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Address of sim where it is expected to be used"""
+  installLocation: InstallationLocationAddressInput
+}
+
+"""
+Aggregates SIM remove allowance operation input parameters into one object.
+"""
+input SimRemoveAllowanceInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Shared Allowance Identifier"""
+  shared: [String!]
+
+  """NonShared Allowance Identifier"""
+  nonShared: [String!]
+}
+
+"""Aggregates SIM replace operation input parameters into one object."""
+input SimReplaceInput {
+  """Source SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """Source SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Target SIM Profile IMSI Identifier"""
+  targetImsi: IMSI
+
+  """Target SIM Profile ICCID Identifier"""
+  targetIccid: ICCID
+}
+
+"""Return information about status of reset SIM operation."""
+type SimResetChange {
+  """SIM Profile Change identifier"""
+  id: String!
+
+  """SIM Profile IoTConnect Identifier"""
+  simId: String!
+
+  """Time of changes completion"""
+  completedTime: OffsetDateTime
+
+  """Current state of changes"""
+  status: SimResetStatus!
+}
+
+enum SimResetStatus {
+  """SIM Reset created"""
+  Created
+
+  """SIM Reset completed"""
+  Completed
+
+  """SIM Reset failed"""
+  Failed
+}
+
+enum SimRestriction {
+  """SIM is lost"""
+  LostSim
+
+  """SIM failed to function normally"""
+  Malfunction
+}
+
+"""Aggregates SIM restriction input parameters into one object."""
+input SimRestrictionsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Restrictions to be processed for the given SIM"""
+  restrictions: [SimRestriction!]!
+}
+
+"""Aggregates SIM termination operation input parameters into one object."""
+input SimTerminationInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+}
+
+"""
+Aggregates inactive SIM transfer to business unit operation input parameters into one object.
+"""
+input SimTransferInactiveToBusinessUnitInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Target business unit Identifier"""
+  targetUnitId: String
+}
+
+"""
+Aggregates SIM transfer to business unit operation input parameters into one object.
+"""
+input SimTransferToBusinessUnitInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Target business unit Identifier"""
+  targetUnitId: String
+
+  """Service profile Identifier"""
+  newServiceProfileId: String
+
+  """Connectivity service plan Identifier"""
+  newConnectivityPlanId: String
+
+  """Sim Profile State Identifier"""
+  expectedState: SimState
+
+  """
+  List of parameters describing network settings, see NetworkSettingsInput
+  """
+  networkSettings: [NetworkSettingsAdjustmentInput!]
+
+  """Network slices settings for SIM Profile"""
+  networkSlices: [NetworkSliceAdjustmentInput!]
+}
+
+"""
+Aggregates SIM unassign APNs operation input parameters into one object.
+"""
+input SimUnassignApnsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """The names of a gateways which would be unassigned from the SIM"""
+  apnNames: [String!]!
+
+  """The names of the default APN to assign to the SIM"""
+  defaultApnName: String
+
+  """The names of the default APN/DNN replacements for unassigned APNs"""
+  defaultApnsReplacement: [DefaultApnReplacementInput!]
+}
+
+"""
+Aggregates SIM update assigned APN operation input parameters into one object.
+"""
+input SimUpdateAssignedApnsInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """
+  List of parameters describing network settings, see NetworkSettingsInput
+  """
+  networkSettings: [NetworkSettingsAdjustmentInput!]!
+}
+
+input SnssaiInput {
+  serviceType: SnssaiServiceType!
+  serviceDifferentiator: String
+  serviceTypeNum: Int = -1
+}
+
+"""Aggregates submit SIM order operation input into one object."""
+input SubmitSimOrderInputInput {
+  """SIM order Identifier"""
+  id: String!
+}
+
+"""Return information about submitted order"""
+type SubmitSimOrderResult {
+  """SIM order ID"""
+  id: String
+
+  """Created"""
+  created: Boolean!
+
+  """Updated"""
+  updated: Boolean!
+}
+
+enum TestsCompletedSimState {
+  """SIM used under normal conditions"""
+  Live
+
+  """Customer decided to not use sim temporarily"""
+  Sleep
+
+  """SIM is put into inventory, not used but not blocked"""
+  Inventory
+}
+
+"""
+Aggregates SIM remove monitoring profile operation input parameters into one object.
+"""
+input UnassignMonitoringProfileInputInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+}
+
+type AcceptanceSettings {
+  orderAutoAcceptEnabled: Boolean
+  conditions: [AutoAcceptCondition!]!
+}
+
+"""Represents account balance details"""
+type AccountBalanceModel {
+  """Account balance"""
+  balance: BigDecimal
+}
+
+type AccountManager {
+  id: String!
+  name: String!
+  position: String
+  contact: Contact
+}
+
+type ActivationCode {
+  value: String!
+  qrValue: String!
+}
+
+"""Represent agreement id"""
+type AgreementIdModel {
+  """Identifier specifying agreement"""
+  id: String!
+}
+
+"""The type of IP allocation."""
+enum AllocationType {
+  """Static IP allocation."""
+  Static
+
+  """Dynamic IP allocation."""
+  Dynamic
+}
+
+"""
+Represent allowance consumption state parameters. Follow this type to see full list of available parameters.
+"""
+type AllowanceConsumptionState {
+  """Total available volume to consume."""
+  currentSize: Long!
+
+  """Currently used volume."""
+  currentUsedSize: Long!
+
+  """Remaining volume to consume."""
+  remainingCurrentSize: BigDecimal!
+
+  """Currently used volume in percentage."""
+  usedCurrentSizePercentage: BigDecimal!
+
+  """
+  Allowance Service for which stats provided. To see full list of available service follow AllowanceServiceType type.
+  """
+  serviceType: AllowanceServiceType!
+  nextRechargeSize: Long @deprecated(reason: "Field not used")
+  nextRechargePrice: BigDecimal @deprecated(reason: "Field not used")
+  limitsUsage: [AllowanceLimitsUsage!]! @deprecated(reason: "Deprecated limits per country zone")
+}
+
+"""
+Represent allowance parameters. Follow this type to see full list of available parameters.
+"""
+type AllowanceDetails {
+  """Allowance IoTConnect internal id"""
+  id: String!
+
+  """
+  Allowance shared mode strategy. To see full list of available modes follow AllowanceShareMode type.
+  """
+  allowanceShareMode: AllowanceShareMode!
+  serviceUsageType: AllowanceServiceType! @deprecated(reason: "See serviceUsageTypes")
+
+  """
+  Allowance Service types list assigned to the Allowance. To see full list of available service follow AllowanceServiceType type.
+  """
+  serviceUsageTypes: [AllowanceServiceType!]!
+  level: ConnectivityAllowanceLevel!
+  validTo: OffsetDateTime
+
+  """Allowance subscription connected with the Allowance."""
+  subscriptionRef: AllowanceSubscription
+
+  """Service profile stage connected with the Allowance."""
+  lifecycleStage: ProductLifecycleStage
+
+  """Configured price for the Allowance."""
+  price: BigDecimal
+
+  """Active SIMs configured with the Allowance."""
+  activeSimsCount: Int
+
+  """Last consumption date within the Allowance."""
+  lastConsumptionDate: OffsetDateTime
+  consumptionState: AllowanceConsumptionState! @deprecated(reason: "See consumptionStates")
+
+  """
+  Allowance Consumption state list assigned to the Allowance. To see full list of available states follow AllowanceConsumptionState type.
+  """
+  consumptionStates: [AllowanceConsumptionState!]!
+}
+
+"""
+Represent allowance usage limit parameters. Follow this type to see full list of available parameters.
+"""
+type AllowanceLimitsUsage {
+  """specify which zone the configuration belongs to."""
+  countryZones: [Int!]!
+
+  """Available volume size in percentage."""
+  limitSizePercentage: BigDecimal!
+
+  """Available volume size to consume."""
+  limitSize: BigDecimal!
+
+  """Used volume size."""
+  usedSize: BigDecimal!
+
+  """Used volume size in percentage."""
+  usedSizePercentage: BigDecimal!
+}
+
+"""
+Represent allowance product specification parameters. Follow this type to see full list of available parameters.
+"""
+type AllowanceProductSpecification {
+  id: String!
+  iconName: String
+}
+
+enum AllowanceServiceType {
+  """Identifies Data configuration for Allowance"""
+  Data
+
+  """Identifies Voice MO (Mobile Originated) configuration for Allowance"""
+  VoiceMo
+
+  """Identifies SMS MO (Mobile Originated) configuration for Allowance"""
+  SmsMo
+
+  """Identifies CSD (Circuit Switched Data) configuration for Allowance"""
+  CSD
+}
+
+enum AllowanceShareMode {
+  NonShared
+  Shared
+  Pooled
+}
+
+"""
+Represent allowance subscription parameters. Follow this type to see full list of available parameters.
+"""
+type AllowanceSubscription {
+  """The id of Allowance Subscription."""
+  id: String!
+
+  """The currency in which all charges."""
+  currency: ISOCurrency!
+  productSpecificationRef: AllowanceProductSpecification
+
+  """
+  The name of Allowance Subscription. Helps manage subscriptions by their name
+  """
+  name: String!
+}
+
+type AllowancesConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [AllowancesEdge!]!
+}
+
+type AllowancesEdge {
+  node: AllowanceDetails!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""
+APN Profile information containing name, type, allocation settings and IP ranges
+"""
+type ApnProfile {
+  """Unique identifier of the APN profile"""
+  id: String!
+
+  """The ID of the customer who owns this APN profile"""
+  customerId: String!
+
+  """Name of the APN profile"""
+  name: String!
+
+  """Current state of the APN profile"""
+  state: String!
+
+  """Activation date of the APN profile"""
+  activationDate: OffsetDateTime
+
+  """Type of the APN profile (public/private)"""
+  apnType: String!
+
+  """IP address spaces configuration"""
+  ipAddressSpaces: IpAddressSpaces
+}
+
+type ApnProfilesListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [ApnProfilesListEdge!]!
+}
+
+type ApnProfilesListEdge {
+  node: ApnProfile!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""The type of the APN connection."""
+enum ApnType {
+  """A public APN."""
+  Public
+
+  """A private APN."""
+  Private
+
+  """An APN Share."""
+  ApnShare
+
+  """A generic Share type."""
+  Share
+}
+
+type AuthenticationPolicyInfo {
+  internalRealm: RealmInfo!
+  externalRealm: RealmInfo!
+}
+
+type AutoAcceptCondition {
+  name: String!
+  autoAcceptConditionCheckState: String!
+}
+
+"""
+Represent available non shared allowances parameters. Follow this type to see full list of available parameters.
+"""
+type AvailableNonSharedAllowances {
+  """Subscription name"""
+  name: String!
+
+  """Subscription ID"""
+  subscriptionId: String!
+}
+
+"""
+Represent available shared allowances parameters. Follow this type to see full list of available parameters.
+"""
+type AvailableSharedAllowances {
+  """Shared allowance ID"""
+  grantedAllowanceId: String!
+
+  """Shared allowance name"""
+  name: String
+}
+
+"""
+Represent bundle size parameters. Follow this type to see full list of available parameters.
+"""
+type BundleSize {
+  """Available data bytes for consumption."""
+  dataBytes: Long
+
+  """Available data duration for consumption."""
+  dataDuration: Long
+
+  """Available number of sessions for consumption."""
+  dataSessions: Long
+
+  """Available number of sms for consumption."""
+  smsCalls: Long
+
+  """Available number of voice calls for consumption."""
+  voiceCalls: Long
+
+  """Available total duration of voice calls for consumption."""
+  voiceDuration: Long
+}
+
+scalar BusinessPartnerId
+
+"""
+Represent business unit parameters. Follow this type to see full list of available parameters.
+"""
+type BusinessUnitDetails {
+  """Business Unit identifier"""
+  id: BusinessUnitId!
+
+  """Business Unit name"""
+  name: String!
+}
+
+"""Represents business unit details"""
+type BusinessUnitDetailsModel {
+  """Identifier specifying business unit"""
+  id: String!
+
+  """Name of business unit"""
+  name: String!
+
+  """Business unit's organization type"""
+  organizationType: String
+
+  """Business unit's business segment"""
+  businessSegment: String
+
+  """Business unit's address"""
+  address: CustomerAddress
+
+  """Business unit's delivery address"""
+  deliveryAddress: CustomerAddress
+
+  """Business unit's billing address"""
+  billingAddress: CustomerAddress
+
+  """Business unit's legal ids"""
+  legalIds: [LegalIds!]!
+
+  """Business unit's contact data"""
+  contactData: ContactData
+
+  """Business unit's Account Manager"""
+  accountManager: AccountManager
+}
+
+"""Business unit details input parameters"""
+input BusinessUnitDetailsParametersInput {
+  """
+  Business Unit ID - a string that uniquely identifies every Business Unit created in IoTConnect Platform
+  """
+  businessUnitId: String!
+}
+
+"""
+Business Unit ID - a string that uniquely identifies every Business Unit created in IoTConnect Platform
+"""
+scalar BusinessUnitId
+
+"""Represent business unit parameters"""
+type BusinessUnitInfo {
+  """Identifier specifying business unit"""
+  id: String!
+
+  """Name of the business unit"""
+  name: String!
+}
+
+type BusinessUnitsListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [BusinessUnitsListEdge!]!
+}
+
+type BusinessUnitsListEdge {
+  node: BusinessUnitInfo!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+input BusinessUnitsListSortByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+"""Aggregates business units input parameters into one object."""
+input BusinessUnitsParametersInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+
+  """Specify sort options for which business units list should be sorted"""
+  sortBy: BusinessUnitsListSortByInput
+}
+
+enum CellularServiceType {
+  Data
+  VoiceIncoming
+  VoiceOutgoing
+  SmsMobileOriginated
+  SmsMobileTerminated
+  SmsDeliveryReport
+  SmsMobileOriginatedAppTerminated
+  CSD
+}
+
+scalar ClientApplicationAccountId
+
+interface Connection {
+  pageInfo: PageInfo!
+}
+
+enum ConnectivityAllowanceLevel {
+  """
+  In Shared Allowance level all SIM hava total available volume no matter how much SIM assigned to the Allowance.
+  """
+  Shared
+
+  """In Sim level allowance volume dedicated only for the SIM."""
+  SimLevel
+
+  """In SharedPooled each added SIM provide its own part of volume"""
+  SharedPooled
+}
+
+"""
+Represent connectivity service plan parameters. Follow this type to see full list of available parameters.
+"""
+type ConnectivityServicePlan {
+  """Identifier of SIM connectivity plan configuration"""
+  id: String!
+
+  """Name of SIM connectivity plan configuration"""
+  name: String!
+}
+
+type Contact {
+  email: String
+  mobile: String
+  phone: String
+}
+
+"""
+Represent customer contact data parameters. Follow this type to see full list of available parameters.
+"""
+type ContactData {
+  """Customer's email"""
+  email: String
+
+  """Customer's phone"""
+  phone: String
+}
+
+"""Represent cost center parameters"""
+type CostCenter {
+  """Identifier specifying cost center"""
+  id: String!
+
+  """Name of the cost center"""
+  name: String!
+}
+
+input CostCenterListSortByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+type CostCentersListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [CostCentersListEdge!]!
+}
+
+type CostCentersListEdge {
+  node: CostCenter!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""Aggregates cost centers input parameters into one object."""
+input CostCentersParametersInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+
+  """Specify sort options for which cost center list should be sorted"""
+  sortBy: CostCenterListSortByInput
+}
+
+type CurrentUserInfo {
+  vendorId: BusinessPartnerId
+  vendorNamedId: String
+
+  """Currently connected user/client application"""
+  username: String!
+
+  """User id if user connected to the API"""
+  userId: UserAccountId
+
+  """Client application id if client application connected to the API"""
+  appId: ClientApplicationAccountId
+
+  """Email address of connected user"""
+  email: String
+
+  """Granted access context"""
+  accessCtx: [String!]!
+
+  """Granted privacy level"""
+  privacyLevel: PrivacyLevel!
+
+  """Granted privileges"""
+  privileges: [String!]!
+
+  """Is access read-only"""
+  readOnly: Boolean!
+
+  """Enabled additional features"""
+  enabledFeatures: [String!]!
+
+  """Granted applications"""
+  enabledApps: [String!]!
+  mutationsAccess(filter: MutationsAccessFilterInput): [FieldAccessInfo!]!
+  queriesAccess(filter: QueriesAccessFilterInput): [FieldAccessInfo!]!
+  mutationAccess(mutationName: String!): FieldAccessInfo!
+  queryAccess(queryName: String!): FieldAccessInfo!
+  fieldAccess(parentType: String!, fieldName: String!): FieldAccessInfo!
+  fieldsAccess(parentType: String!, filter: FieldsAccessFilterInput): [FieldAccessInfo!]!
+  unreadGuiNotificationCount: Long
+  authenticationPolicy: AuthenticationPolicyInfo!
+}
+
+"""Represent custom attribute parameters"""
+type CustomAttr {
+  """Identifier specifying custom attributes configuration"""
+  id: String!
+
+  """The name of the custom attributes configuration"""
+  name: String!
+}
+
+type CustomAttrConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [CustomAttrEdge!]!
+}
+
+type CustomAttrEdge {
+  node: CustomAttr!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+input CustomAttrListSortByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+"""
+Represent custom attribute parameters. Follow this type to see full list of available parameters.
+"""
+type CustomAttrOutput {
+  configId: String
+  tags: [String!]
+  f01: [String!]
+  f02: [String!]
+  f03: [String!]
+  f04: [String!]
+  f05: [String!]
+  f06: [String!]
+  f07: [String!]
+  f08: [String!]
+  f09: [String!]
+  f10: [String!]
+}
+
+"""Aggregates custom attributes input parameters into one object"""
+input CustomAttrQueryInputInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+
+  """
+  Specify sort options for which customer attributes list should be sorted
+  """
+  sortBy: CustomAttrListSortByInput
+}
+
+"""
+Represent customer parameters. Follow this type to see full list of available parameters.
+"""
+type Customer {
+  """Identifier of the customer which owns the SIM"""
+  id: CustomerId!
+
+  """Name of the customer which owns the SIM"""
+  name: String
+}
+
+"""
+Represent customer address parameters. Follow this type to see full list of available parameters.
+"""
+type CustomerAddress {
+  """Customer's address"""
+  addressLines: [String]!
+
+  """Customer's postal code"""
+  postalCode: String!
+
+  """Customer's city"""
+  city: String!
+
+  """Customer's country"""
+  countryName: String!
+}
+
+"""Represents customer agreements ids"""
+type CustomerAgreementsIdModel {
+  """Return agreements ids"""
+  edges: [AgreementIdModel!]!
+}
+
+"""Represents customer details"""
+type CustomerDetailsModel {
+  """Identifier specifying customer"""
+  id: String!
+
+  """Name of customer"""
+  name: String!
+
+  """Customer's organization type"""
+  organizationType: String
+
+  """Customer's business segment"""
+  businessSegment: String
+
+  """Customer's address"""
+  address: CustomerAddress
+
+  """Customer's delivery address"""
+  deliveryAddress: CustomerAddress
+
+  """Customer's billing address"""
+  billingAddress: CustomerAddress
+
+  """Customer's legal ids"""
+  legalIds: [LegalIds!]!
+
+  """Customer's contact data"""
+  contactData: ContactData
+
+  """Account Manager"""
+  accountManager: AccountManager
+}
+
+"""
+Customer ID - a string that uniquely identifies every Customer created in IoTConnect Platform
+"""
+scalar CustomerId
+
+type CustomerInfo {
+  id: String!
+  name: String!
+}
+
+"""
+Represent customer usage profile parameters. Follow this type to see full list of available parameters.
+"""
+type CustomerUsageProfile {
+  """Current Usage Profile State."""
+  currentState: String!
+
+  """
+  Data limits configured in Usage profile. To see all available fields see the DataUsageLimit type.
+  """
+  dataLimits: [DataUsageLimit!]!
+
+  """
+  Voice limits configured in Usage profile. To see all available fields see the VoiceUsageLimit type.
+  """
+  voiceLimits: [VoiceUsageLimit!]!
+
+  """
+  SMS limits configured in Usage profile. To see all available fields see the SmsUsageLimit type.
+  """
+  smsLimits: [SmsUsageLimit!]!
+}
+
+"""
+Represent data parameters. Follow this type to see full list of available parameters.
+"""
+type Data {
+  """Data size sent"""
+  upLink: Long
+
+  """Data size received"""
+  downLink: Long
+}
+
+"""
+Represent data usage limit parameters. Follow this type to see full list of available parameters.
+"""
+type DataUsageLimit {
+  """Data usage limit name, used to improve management."""
+  name: String!
+
+  """
+  Shows data usage warnings information. To see all available parameters follow UsageLimitWarn type.
+  """
+  warn: [UsageLimitWarn!]!
+
+  """
+  Shows data usage limits configured. To see all available parameters follow DataUsageLimitMax type.
+  """
+  max: DataUsageLimitMax!
+}
+
+"""
+Represent data usage max limit parameters. Follow this type to see full list of available parameters.
+"""
+type DataUsageLimitMax {
+  """Data usage max volume limit."""
+  volume: Long
+
+  """Data usage max duration limit."""
+  duration: Long
+
+  """Data usage max connections limit."""
+  connections: Long
+
+  """Data usage max amount limit."""
+  amount: BigDecimal
+
+  """Data usage max failed connections limit."""
+  connectionsFailed: Long
+}
+
+type DeliveryAddress {
+  companyName: String
+  addressee: String
+  country: String
+  phoneNumber: String
+  postalCode: String
+  city: String
+  address: String
+  state: String
+}
+
+"""
+Embedded Identity Document - built-in SIM card identifier in the phone.
+"""
+scalar EID
+
+"""
+Represent eSIM profile parameters. Follow this type to see full list of available parameters.
+"""
+type EProfile {
+  """ESIM Profile EID Identifier."""
+  eid: EID
+
+  """
+  The SM‑SR (Subscription Manager Secure Routing) is in charge of eSIM management and represents the eSIM owner.
+  """
+  smSrId: SmSrId
+
+  """ESIM Profile state."""
+  state: ESimState!
+
+  """
+  Return list of roles assigned to particular ESIM Profile. To see full list of possible failures please follow to the ESimRole type.
+  """
+  roles: [ESimRole!]!
+
+  """SM-DP+ address"""
+  smDpAddress: SmDpAddress
+
+  """MatchingID for profile download"""
+  matchingId: MatchingId
+
+  """ActivationCode for profile download"""
+  activationCode: ActivationCode
+}
+
+enum ESimRole {
+  Provisioning
+  Operational
+  Fallback
+  Emergency
+  Test
+}
+
+enum ESimState {
+  """SIM is available"""
+  Available
+
+  """SIM is assigned"""
+  Assigned
+
+  """SIM is enabled"""
+  Enabled
+
+  """SIM is disabled"""
+  Disabled
+}
+
+enum EnvironmentType {
+  Development
+  Testing
+  SystemIntegration
+  UserAcceptance
+  Staging
+  PreProduction
+  Production
+  Unknown
+}
+
+type FieldAccessInfo {
+  """"""
+  parentType: String!
+
+  """The name of the field being accessed."""
+  fieldName: String!
+
+  """Identify if accessed field exist"""
+  exists: Boolean!
+
+  """Identify if currently connected user has access to the field"""
+  hasAccess: Boolean!
+
+  """Granted roles to the connected user/client application"""
+  grantedRoles: [String!]!
+
+  """Granted roles to access the field"""
+  requiredRoles: [String!]!
+}
+
+input FieldsAccessFilterInput {
+  selected: [String!]
+}
+
+"""
+Integrated Circuit Card Identifier - globally-unique number (electronic serial number) identifying SIM card.
+"""
+scalar ICCID
+
+"""
+International Mobile Equipment Identity - unique code identifying mobile devices.
+"""
+scalar IMEI
+
+"""
+International Mobile Subscriber Identity - a number that uniquely identifies every user of a cellular network.
+"""
+scalar IMSI
+
+enum ISOCountry {
+  TW
+  CL
+  AT
+  BY
+  BG
+  NL
+  LT
+  MY
+  MG
+  LB
+  ES
+  PS
+  BD
+  CI
+  MV
+  BV
+  MD
+  PA
+  NI
+  DK
+  SM
+  HM
+  IR
+  GH
+  GE
+  FR
+  RW
+  RE
+  PM
+  SJ
+  KG
+  IO
+  GW
+  TO
+  SG
+  TL
+  CA
+  AI
+  BN
+  LI
+  MN
+  IL
+  SY
+  UN
+  AX
+  MK
+  AF
+  NP
+  XK
+  WF
+  VA
+  BZ
+  PE
+  EE
+  CM
+  PW
+  BH
+  MZ
+  AU
+  LC
+  MH
+  LU
+  FJ
+  DO
+  PT
+  MW
+  GL
+  ET
+  HN
+  IS
+  GI
+  SN
+  BR
+  AM
+  KZ
+  KH
+  HK
+  SK
+  GF
+  SZ
+  MO
+  KW
+  KE
+  IM
+  VE
+  BO
+  TM
+  AG
+  BL
+  ML
+  LY
+  CN
+  PF
+  ZA
+  GP
+  FK
+  HR
+  IE
+  GM
+  SR
+  EC
+  IT
+  TT
+  UY
+  UG
+  SO
+  AQ
+  AN
+  MS
+  MA
+  KI
+  IQ
+  SL
+  VI
+  CX
+  CF
+  BS
+  NF
+  BA
+  NU
+  NC
+  LK
+  MP
+  CU
+  US
+  DZ
+  CC
+  UA
+  MM
+  VU
+  GT
+  GB
+  FO
+  DE
+  BM
+  CR
+  ZW
+  NR
+  NO
+  SV
+  GQ
+  SD
+  EG
+  PG
+  PY
+  KP
+  GN
+  SA
+  TF
+  FI
+  SS
+  ME
+  KM
+  UZ
+  AR
+  BW
+  BE
+  TC
+  _U
+  LR
+  JE
+  TR
+  CY
+  BB
+  CG
+  AO
+  BT
+  NG
+  MT
+  KY
+  VG
+  QA
+  BQ
+  CV
+  CD
+  AL
+  MQ
+  PN
+  GU
+  RU
+  PK
+  SH
+  NA
+  TJ
+  FM
+  GR
+  SE
+  EH
+  PH
+  JO
+  HT
+  TG
+  ST
+  AD
+  SB
+  BI
+  LV
+  RO
+  WS
+  ID
+  VN
+  TV
+  TD
+  CK
+  BF
+  MX
+  AS
+  MF
+  KN
+  LS
+  LA
+  CH
+  DM
+  PR
+  ER
+  CZ
+  OM
+  NZ
+  MU
+  MC
+  ZM
+  GG
+  YE
+  CW
+  DJ
+  NE
+  GY
+  MR
+  IN
+  SI
+  GD
+  TN
+  PL
+  YT
+  GA
+  TK
+  RS
+  SX
+  GS
+  AZ
+  JP
+  VC
+  HU
+  TZ
+  SC
+  BJ
+  TH
+  CO
+  AW
+  AE
+  KR
+  UM
+  JM
+}
+
+enum ISOCurrency {
+  FKP
+  MVR
+  JMD
+  GBP
+  AMD
+  XPD
+  RSD
+  HUF
+  EUR
+  TWD
+  LYD
+  BYN
+  THB
+  RWF
+  KWD
+  NZD
+  MZN
+  IDR
+  KMF
+  XBB
+  MXV
+  PKR
+  TOP
+  CRC
+  CDF
+  SCR
+  GHS
+  COU
+  XCD
+  EGP
+  CHW
+  CHE
+  PGK
+  CAD
+  JPY
+  IQD
+  XOF
+  TRY
+  PHP
+  BTN
+  MKD
+  TJS
+  ISK
+  ETB
+  HNL
+  CLP
+  USN
+  SHP
+  GYD
+  MMK
+  SAR
+  SSP
+  KZT
+  BOB
+  ANG
+  BDT
+  SLL
+  BIF
+  XBC
+  BGN
+  LRD
+  DJF
+  CHF
+  CUP
+  MDL
+  KES
+  SEK
+  FJD
+  DKK
+  NGN
+  UZS
+  AWG
+  ERN
+  HKD
+  LKR
+  AOA
+  BND
+  MUR
+  KRW
+  STD
+  DZD
+  XSU
+  VEF
+  ZMW
+  ZAR
+  QAR
+  GEL
+  CZK
+  INR
+  XBD
+  AUD
+  MOP
+  DOP
+  KPW
+  UYU
+  SGD
+  TTD
+  SRD
+  BRL
+  XFU
+  PAB
+  BWP
+  SVC
+  USD
+  NAD
+  WST
+  CLF
+  VUV
+  GMD
+  USS
+  BAM
+  MWK
+  XAF
+  NPR
+  PLN
+  GNF
+  RUB
+  AED
+  MYR
+  KGS
+  BZD
+  XAU
+  AZN
+  BOV
+  CNY
+  SBD
+  XDR
+  CUC
+  TZS
+  IRR
+  XPT
+  UGX
+  CVE
+  KHR
+  XTS
+  ALL
+  OMR
+  BBD
+  BMD
+  ILS
+  VND
+  SYP
+  PYG
+  COP
+  MXN
+  XAG
+  NOK
+  GIP
+  PEN
+  XPF
+  MRO
+  XXX
+  LSL
+  BHD
+  NIO
+  BSD
+  HRK
+  SZL
+  MAD
+  LAK
+  LBP
+  ZWL
+  UAH
+  SDG
+  XBA
+  TMT
+  ARS
+  AFN
+  JOD
+  RON
+  XUA
+  YER
+  SOS
+  MNT
+  TND
+  KYD
+  HTG
+  GTQ
+  UYI
+  MGA
+}
+
+type ImeiInfo {
+  """Base IMEI without check digits."""
+  baseImei: String!
+
+  """
+  The International Mobile Equipment Identity (IMEI) is a unique number, to identify 3GPP and iDEN devices.
+  """
+  imei: String!
+
+  """
+  IMEISV (16 decimal digits: 14 digits plus two software version digits) includes information on the origin, model, and serial number of the device.
+  """
+  imeisv: String
+
+  """
+  The last number of the IMEI is a check digit, calculated using the Luhn algorithm.
+  """
+  checkDigit: Int
+
+  """Two software version digits from IMEISV."""
+  softwareVersionDigit: String
+  expectedDigit: Int!
+
+  """Identifies that IMEI is valid."""
+  isValid: Boolean!
+  typeApprovalCode: String!
+  serialNumber: String!
+}
+
+"""Aggregates SIM installation location parameters into one object."""
+type InstallationLocationAddress {
+  """address lines"""
+  addressLines: [String!]!
+
+  """Postal code"""
+  postalCode: String!
+
+  """City"""
+  city: String!
+
+  """State"""
+  adminUnits: [String!]
+
+  """Country Code"""
+  countryIso: ISOCountry!
+}
+
+"""Represent invoice download parameters"""
+type InvoiceDownloadInfo {
+  """URL to download invoice"""
+  url: String!
+}
+
+"""Invoice Download input parameters"""
+input InvoiceDownloadParametersInput {
+  """Invoice ID - a string that uniquely identifies Invoice"""
+  invoiceId: String!
+}
+
+"""Represent invoice parameters"""
+type InvoiceInfo {
+  """Identifier specifying invoice to download"""
+  id: String!
+}
+
+type InvoiceInfoListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [InvoiceInfoListEdge!]!
+}
+
+type InvoiceInfoListEdge {
+  node: InvoiceInfo!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+input InvoiceInfoListSortByInput {
+  id: SortOrder
+}
+
+"""Aggregates invoice input parameters into one object."""
+input InvoiceInfoParametersInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+
+  """Specify sort options for which invoice list should be sorted"""
+  sortBy: InvoiceInfoListSortByInput
+}
+
+"""IP address spaces configuration for an APN profile"""
+type IpAddressSpaces {
+  """IPv4 configuration"""
+  ipv4: [IpConfiguration!]!
+
+  """IPv6 configuration"""
+  ipv6: [IpConfiguration!]!
+}
+
+enum IpAllocationType {
+  """
+  SIMs with Dynamic allocation type may or may not have the same IPs during different data sessions
+  """
+  Dynamic
+
+  """
+  SIMs with Static allocation type always have the same IPs during different data sessions
+  """
+  Static
+}
+
+"""IP configuration for an APN profile"""
+type IpConfiguration {
+  """IP pool range"""
+  range: String
+
+  """IP address associated with this IP space"""
+  address: String
+
+  """Allowed allocation types"""
+  allowedAllocationTypes: [String!]!
+}
+
+type LastPortionStats {
+  usage: Long!
+  download: Long
+  upload: Long
+}
+
+"""Represent SIM session details information."""
+type LastSessionDetails {
+  """Last session start date"""
+  startTime: OffsetDateTime
+
+  """Last session end date"""
+  endTime: OffsetDateTime
+
+  """Last session update time during active state"""
+  updateTime: OffsetDateTime
+
+  """Last session location"""
+  location: SessionLocation
+
+  """Data size sent during last session"""
+  upLink: Long
+
+  """Data size received during last session"""
+  downLink: Long
+
+  """IPV4 address assigned to this device during last session"""
+  ipAddressV4: String
+
+  """IPV6 address prefix assigned to this device during last session"""
+  ipAddressV6Prefix: String
+
+  """IMEI identifier of the device that established connection"""
+  imei: IMEI
+  imeiInfo: ImeiInfo
+}
+
+"""
+Represent customer's legal ids. Follow this type to see full list of available parameters.
+"""
+type LegalIds {
+  """ID Type"""
+  idType: String!
+
+  """ID value"""
+  value: String!
+}
+
+"""
+Mobile Station International Subscriber Directory Number - number used to identify mobile phone number internationally.
+"""
+scalar MSISDN
+
+"""eSIM Profile MatchingID"""
+scalar MatchingId
+
+input MutationsAccessFilterInput {
+  selected: [String!]
+}
+
+"""
+Represent network settings parameters. Follow this type to see full list of available parameters.
+"""
+type NetworkSettings {
+  """The name of a gateway assigned to the SIM"""
+  apnName: String!
+
+  """IP allocation strategy, see IpAllocationType"""
+  allocationType: IpAllocationType
+
+  """Allocated static IPv4 addresses"""
+  staticIPv4Addresses: [String!]
+
+  """Allocated static IPv6 addresses"""
+  staticIPv6Addresses: [String!]
+
+  """Is the APN selected as the default APN for the SIM"""
+  isDefault: Boolean
+}
+
+"""Network slice settings for SIM"""
+type NetworkSlice {
+  """NetworkSlices SNSSAI"""
+  snssai: Snssai!
+
+  """Default slice for SIM"""
+  isDefault: Boolean!
+
+  """Default DNN for network slice"""
+  defaultDnnName: String
+}
+
+scalar OffsetDateTime
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """Total number of available results according to given query criteria"""
+  total(trackTotalHits: Boolean): Long!
+
+  """Indicated whether number of total hits are precise or estimated"""
+  totalRelation: TotalRelation!
+
+  """Number of records in given page"""
+  size: Int!
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """Numerical position of the first record returned"""
+  startPosition: Long
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """Numerical position of the first record returned"""
+  endPosition: Long
+}
+
+"""
+Aggregates parameters that helps for the pagination. Fetches all objects in the collection and return a slice based on the first/last x records. after/before are used to indicate to the GraphQL server the number of required slice (data) using cursor from the node.
+"""
+input PagingInput {
+  """When paginating backwards, the cursor of first record returned."""
+  before: String
+
+  """When paginating forwards, the cursor of first record returned."""
+  after: String
+
+  """Numerical position of the first record returned."""
+  first: Int
+
+  """Numerical position of the last record returned."""
+  last: Int
+
+  """Identifies number of fetched records."""
+  limit: Int
+
+  """Identifies number of records to skip during fetch."""
+  offset: Int
+}
+
+enum PrivacyLevel {
+  External
+  Confidential
+  Internal
+  Secret
+}
+
+enum ProductLifecycleStage {
+  """Allowance can be used in Ready stage"""
+  Ready
+
+  """Allowance can be used in Sleep stage"""
+  Sleep
+
+  """Allowance can be used in Live stage"""
+  Live
+
+  """Allowance can be used in Inventory stage"""
+  Inventory
+
+  """Allowance can be used in Test stage"""
+  Test
+}
+
+input QueriesAccessFilterInput {
+  selected: [String!]
+}
+
+type Query {
+  """
+  Get SIM change operation status for given SIM change identifier. SIM change identifier is placed in response of every SIM scoped mutation. 
+  """
+  simChangeStatus(
+    """Provide simChangeId to retrieve details about the change."""
+    simChangeId: SimChangeId!
+  ): SimChangeDetails
+
+  """
+  Retrieve the last session details for a given SIM. Either imsi or iccid parameter should be provided.
+  """
+  simLastSessionDetails(
+    """SIM Profile IMSI Identifier"""
+    imsi: IMSI
+
+    """SIM Profile ICCID Identifier"""
+    iccid: ICCID
+  ): LastSessionDetails
+
+  """Get details of logged in customer"""
+  customer: CustomerDetailsModel
+
+  """Get account balance of logged in customer"""
+  accountBalance: AccountBalanceModel
+
+  """Get agreements ids"""
+  agreementsId: CustomerAgreementsIdModel!
+
+  """Get details of business unit"""
+  businessUnit(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: BusinessUnitDetailsParametersInput!
+  ): BusinessUnitDetailsModel
+
+  """Get sim order state"""
+  simOrderState(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    id: String!
+  ): SimProfileOrderState
+
+  """Get sim module list"""
+  simModuleList(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimModuleParametersInput
+  ): SimModuleListConnection!
+
+  """Download the invoice"""
+  downloadInvoice(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: InvoiceDownloadParametersInput!
+  ): InvoiceDownloadInfo
+
+  """
+  Get list of APN profiles for the specified customer with optional filtering
+  """
+  apnProfiles(customerId: String!, apnName: String, apnType: ApnType, activationDateFrom: OffsetDateTime, activationDateTo: OffsetDateTime, allocationType: AllocationType): ApnProfilesListConnection
+
+  """
+  Get complete information on the given SIM. Either imsi or iccid parameter should be provided.
+  """
+  simDetails(
+    """SIM Profile IMSI Identifier"""
+    imsi: IMSI
+
+    """SIM Profile ICCID Identifier"""
+    iccid: ICCID
+  ): SimDetails
+
+  """Get list of SIMs which are owned by customer."""
+  simList(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimListParametersInput
+  ): SimsDetailsConnection!
+
+  """
+  Get Service Profiles (SIM services configurations) for SIMs owned by customer.
+  """
+  serviceProfileList(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: ServiceProfileListParametersInput
+  ): ServiceProfilesConnection!
+
+  """
+  Get list of SIM change operations which were applied to SIM(s) owned by customer.
+  """
+  simChangeList(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: SimChangeListParametersInput
+  ): SimChangesConnection!
+
+  """Retrieve session history for a given SIM."""
+  simSessionHistory(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: SessionHistoryParametersInput!
+  ): SessionUsagePortionsConnection!
+
+  """Get list of available cost centers"""
+  costCentersList(
+    """
+    Specify input parameters for this operation. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: CostCentersParametersInput
+  ): CostCentersListConnection!
+
+  """Get list of business units"""
+  businessUnitsList(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: BusinessUnitsParametersInput
+  ): BusinessUnitsListConnection!
+
+  """Get list of available monitoring profiles"""
+  monitoringProfiles(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: UsageProfilesParametersInput!
+  ): UsageProfilesListConnection!
+
+  """Get list of custom attributes configurations"""
+  simCustomAttributeSets(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: CustomAttrQueryInputInput
+  ): CustomAttrConnection!
+
+  """Get sim order list"""
+  simOrderList(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if his type contains '!' sign.
+    """
+    input: SimProfileOrderParametersInput
+  ): SimProfileOrderListConnection!
+
+  """Get the list of Customer Invoices"""
+  invoiceList(
+    """
+    Specify input parameters for this operation to filter the result data. The parameter is mandatory if its type contains '!' sign.
+    """
+    input: InvoiceInfoParametersInput
+  ): InvoiceInfoListConnection!
+  systemVersion: SystemVersion!
+  currentUser: CurrentUserInfo!
+}
+
+enum RatType {
+  UTRAN
+  GERAN
+  WLAN
+  GAN
+  HSPA_Evolution
+  EUTRAN
+  Virtual
+  EUTRAN_NB_IoT
+  LTE_M
+  NR
+  NG_RAN
+  IEEE_802_16e
+  RT_3GPP2_eHRPD
+  RT_3GPP2_HRPD
+  RT_3GPP2_1xRTT
+  RT_3GPP2_UMB
+  UNRECOGNIZED_V2_TYPE
+  UNRECOGNIZED_TYPE
+  PCC_GERAN
+  PCC_UTRAN
+  PCC_EUTRAN
+  PCC_eHRPD
+  PCC_HRPD
+  PCC_CDMA200_1X
+  PCC_UMB
+  PCC_EUTRAN_NB_IoT
+  PCC_GAN
+  PCC_HSPA_EVOLUTION
+  EUTRAN_LEO
+  EUTRAN_MEO
+  EUTRAN_GEO
+  EUTRAN_NB_IoT_LEO
+  EUTRAN_NB_IoT_MEO
+  EUTRAN_NB_IoT_GEO
+  EUTRAN_NB_IoT_OTHERSAT
+  EUTRAN_OTHERSAT
+  LTE_M_LEO
+  LTE_M_MEO
+  LTE_M_GEO
+  LTE_M_OTHERSAT
+}
+
+type RealmInfo {
+  otpConfigRequirement: String!
+  loginConfigEmailAsUsername: Boolean
+  internalRegistrationEnabled: Boolean
+  registrationConfigExternalUsers: Boolean
+}
+
+"""
+Represent roaming settings parameters. Follow this type to see full list of available parameters.
+"""
+type RoamingSettings {
+  """Data roaming status"""
+  dataRoaming: SimCellularServiceState
+
+  """SMS MO roaming status"""
+  smsMoRoaming: SimCellularServiceState
+
+  """Voice roaming status"""
+  voiceRoaming: SimCellularServiceState
+}
+
+"""
+Represent service profile parameters. Follow this type to see full list of available parameters.
+"""
+type ServiceProfileDetails {
+  """Identifier of SIM services configuration"""
+  id: ServiceProfileId!
+
+  """Service profile name"""
+  name: String!
+
+  """Connectivity service plans"""
+  connectivityServicePlans: [ConnectivityServicePlan!]!
+
+  """SIMs with this service profile assigned"""
+  simRefs(paging: PagingInput): SimsConnection
+}
+
+"""
+Service profile ID - a string that uniquely identifies service profile (subscription) in IoTConnect Platform, which could be assigned to a SIM.
+"""
+scalar ServiceProfileId
+
+"""Aggregates service profile list parameters into one object."""
+input ServiceProfileListParametersInput {
+  """Paging parameters, see PagingInput"""
+  paging: PagingInput
+
+  """Specify sort options for which service profile list should be sorted"""
+  sortBy: ServiceProfileListSortByInput
+}
+
+input ServiceProfileListSortByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+type ServiceProfilesConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [ServiceProfilesEdge!]!
+}
+
+type ServiceProfilesEdge {
+  node: ServiceProfileDetails!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+input SessionHistoryFilterInput {
+  serviceTypes: [CellularServiceType!]!
+}
+
+"""Aggregates session history input parameters into one object"""
+input SessionHistoryParametersInput {
+  """SIM Profile IMSI Identifier"""
+  imsi: IMSI
+
+  """SIM Profile ICCID Identifier"""
+  iccid: ICCID
+
+  """Paging parameters, see Paging"""
+  paging: PagingInput
+
+  """Time frame parameters, see TimeFrame"""
+  timeFrame: TimeFrameInput
+
+  """Specify sort options for which session history should be sorted"""
+  sortBy: SessionHistorySortByInput
+
+  """Specify filter options for which sessions should be filtered"""
+  filter: SessionHistoryFilterInput
+}
+
+input SessionHistorySortByInput {
+  sessionId: SortOrder
+  state: SortOrder
+  ggsnIpAddress: SortOrder
+  sgsnAddress: SortOrder
+  usage: SortOrder
+  serviceType: SortOrder
+  technologyType: SortOrder
+  subscriptionName: SortOrder
+  msisdn: SortOrder
+  iccid: SortOrder
+  duration: SortOrder
+  terminationReason: SortOrder
+  sessionStartTime: SortOrder
+  sessionEndTime: SortOrder
+  updateTime: SortOrder
+  apnName: SortOrder
+  upLink: SortOrder
+  downLink: SortOrder
+  ipAddressV4: SortOrder
+  ipAddressV6Prefix: SortOrder
+  imei: SortOrder
+}
+
+"""Represent SIM Location information for SIM session."""
+type SessionLocation {
+  """Mobile Country Code"""
+  mcc: Int
+
+  """Mobile Network Code"""
+  mnc: String
+
+  """Location Area Code"""
+  lac: Int
+
+  """Cell identifier"""
+  cell: Int
+}
+
+enum SessionState {
+  NotStarted
+  Rejected
+  Ongoing
+  Terminated
+  Dropped
+  Sent
+  DeliveredOK
+  ExpiredBeforeDelivery
+  ManuallyDeletedBeforeDelivery
+  SystemError
+  InvalidCalledNumber
+  ManuallyAcceptedBeforeDelivery
+  Stale
+  TimedOut
+}
+
+enum SessionStopReason {
+  DiameterLogout
+  DiameterServiceNotProvided
+  DiameterBadAnswer
+  DiameterAdministrative
+  DiameterLinkBroken
+  DiameterAuthExpired
+  DiameterUserMoved
+  DiameterSessionTimeout
+  UserRequest
+  LostCarrier
+  LostService
+  IdleTimeout
+  SessionTimeout
+  AdminReset
+  AdminReboot
+  PortError
+  NASError
+  NASRequest
+  NASReboot
+  PortUnneeded
+  PortPreempted
+  PortSuspended
+  ServiceUnavailable
+  Callback
+  UserError
+  HostRequest
+  SupplicantRestart
+  ReauthenticationFailure
+  PortReinitialized
+  PortAdministrativelyDisabled
+  Other
+  ScmTimeout
+}
+
+"""Represents Session Usage stats information."""
+type SessionUsage {
+  """Session ID"""
+  sessionId: String!
+
+  """Session state"""
+  state: SessionState!
+
+  """Last portion stats"""
+  portionStats: LastPortionStats!
+
+  """GGSN IP address"""
+  ggsnIpAddress: String
+
+  """SGSN address"""
+  sgsnAddress: String
+
+  """Session start date"""
+  sessionStartTime: OffsetDateTime
+
+  """Session end date"""
+  sessionEndTime: OffsetDateTime
+
+  """Last session update time"""
+  updateTime: OffsetDateTime
+
+  """Session location"""
+  location: SessionLocation!
+
+  """APN used during session"""
+  apnName: String
+
+  """Data size sent during usage portion"""
+  upLink: Long
+
+  """Data size received during usage portion"""
+  downLink: Long
+
+  """IPV4 address assigned to this device during usage portion"""
+  ipAddressV4: String
+
+  """IPV6 address prefix assigned to this device during usage portion"""
+  ipAddressV6Prefix: String
+
+  """IMEI identifier of the device that established connection"""
+  imei: IMEI
+
+  """Total session usage"""
+  usage: Long
+
+  """Service type"""
+  serviceType: CellularServiceType!
+
+  """Technology type"""
+  technologyType: RatType
+
+  """Subscription name"""
+  subscriptionName: String
+
+  """MSISDN"""
+  msisdn: String
+
+  """Iccid"""
+  iccid: ICCID
+
+  """Total session duration"""
+  duration: Int
+
+  """Session termination reason"""
+  terminationReason: SessionStopReason
+  imeiInfo: ImeiInfo
+}
+
+type SessionUsagePortionsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SessionUsagePortionsEdge!]!
+}
+
+type SessionUsagePortionsEdge {
+  node: SessionUsage!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+type SimCardInfo {
+  imsi: Long!
+  iccid: String!
+}
+
+enum SimCellularServiceState {
+  """Service blocked."""
+  Blocked
+
+  """Service disable (not available)."""
+  Disabled
+
+  """Service enabled."""
+  Enabled
+}
+
+"""Object represented SIM change operation details."""
+type SimChangeDetails {
+  """SIM Profile Change identifier"""
+  id: String!
+
+  """SIM Profile IoTConnect identifier"""
+  simId: String!
+
+  """Requested time of task execution. Empty if operation was immidiate."""
+  requestedTime: OffsetDateTime
+
+  """
+  Identifies the list of changes performed during this operation.To see full list of possible changes please follow to the SimChangeType type.
+  """
+  changeType: [SimChangeType!]!
+
+  """Current state of changes"""
+  state: SimChangeState!
+
+  """Time of changes completion"""
+  completionTime: OffsetDateTime
+
+  """Time of changes creation"""
+  creationTime: OffsetDateTime
+}
+
+"""
+SIM change ID - a string that uniquely identifies every change made on SIM Profile
+"""
+scalar SimChangeId
+
+"""Aggregates all input parameters into one object."""
+input SimChangeListParametersInput {
+  """Paging parameters, see PagingInput"""
+  paging: PagingInput
+
+  """
+  SIM Profile IMSI Identifier specifying SIM for which sim changes should be fetched
+  """
+  imsi: IMSI
+
+  """
+  SIM Profile ICCID Identifier specifying SIM for which sim changes should be fetched
+  """
+  iccid: ICCID
+
+  """Specify sort options for which sim change list should be sorted"""
+  sortBy: SimChangeListSortByInput
+}
+
+input SimChangeListSortByInput {
+  id: SortOrder
+  simId: SortOrder
+  requestedTime: SortOrder
+  changeType: SortOrder
+  state: SortOrder
+  completionTime: SortOrder
+}
+
+enum SimChangeState {
+  """Sim Change operation scheduled and wait until its execution time."""
+  Pending
+
+  """Sim change still processing."""
+  InProgress
+
+  """Sim change finish processing."""
+  Completed
+
+  """Sim change finish processing with error."""
+  Failed
+
+  """Sim change was canceled."""
+  Cancelled
+
+  """
+  Requested time specified for this operation expired. Could be caused if previous operation stuck.
+  """
+  Expired
+
+  """Sim limits were verified."""
+  LimitsVerified
+}
+
+enum SimChangeType {
+  Activated
+  AuthCredentialsChanged
+  NetworkBehindMobileChanged
+  AuthDisabled
+  AuthEnabled
+  ApnChanged
+  ApnQoSChanged
+  CustomerUnitChanged
+  DataBlocked
+  DataUnblocked
+  EnabledSimProfileChanged
+  ImeiLinked
+  ImeiLocked
+  ImeiUnlinked
+  ImeiUnlocked
+  LiveStarted
+  NetworkTechnologyChanged
+  PutToSleep
+  ServiceProfileChanged
+  SmsIntBlocked
+  SmsIntUnblocked
+  SmsMoBlocked
+  SmsMoUnblocked
+  SmsMtBlocked
+  SmsMtUnblocked
+  Terminated
+  TerminationReady
+  TerminationStarted
+  TestsStarted
+  VoiceInBlocked
+  VoiceIntBlocked
+  VoiceIntUnblocked
+  VoiceInUnblocked
+  VoiceOutBlocked
+  VoiceOutUnblocked
+  ReportingCodeChanged
+  RestrictionsApplied
+  RestrictionsRemoved
+  StaticIpAssigned
+  StaticIpUnassigned
+  AssignedCustomerUsageProfile
+  AssignedVendorUsageProfile
+  UnassignedCustomerUsageProfile
+  UnassignedVendorUsageProfile
+  ESimProfileEnabled
+  ESimProfileDisabled
+  ESimProfileDeleted
+  ESimProfileDownloaded
+  PutToInventory
+  ImeiWhiteListAssigned
+  ImeiWhiteListUnassigned
+  VoluntarySuspensionRemoved
+  ConnectivityServicePlanChanged
+  AssignedSessionControlProfile
+  AssignedToCostCenter
+  AssignedToEndConsumer
+  AssignedToTaxJurisdiction
+  AssignedToVendorRegion
+  BillingAccountChanged
+  BillingCycleChanged
+  ContractedToChanged
+  ContractedToClearedChanged
+  ExplicitHomeCountriesCleared
+  ExplicitHomeCountriesDefined
+  ImeiWhiteListUpdated
+  SimCardReplaced
+  SimCardReplacedBy
+  UnassignedFromEndConsumer
+  UnassignedFromVendorRegion
+  UnassignedFromCostCenter
+  UnassignedFromTaxJurisdiction
+  ChangePricingTierAssignment
+  TerminationCancelled
+  TerminationFinished
+  TerminationReverted
+  MigrateIn
+  MigrateOut
+  DeviceCategoryAssigned
+  DeviceCategoryUnassigned
+  TransferIn
+  TransferOut
+  AddonsChanged
+  InactivityProfileAssigned
+  InactivityProfileUnassigned
+  AdditionalAllowanceAdded
+  AdditionalAllowanceRemoved
+  MSISDNChanged
+  FirstImeiActionChanged
+  LocationAddressAssigned
+  LocationAddressUnassigned
+  AssignedRestrictionsProfile
+  UnassignedRestrictionsProfile
+  VendorSimUsageRuleAssigned
+  VenadorSimUsageRuleUnassigned
+  VendorSimUsageRuleChanged
+  CustomerSimUsageRuleAssigned
+  CustomerSimUsageRuleUnassigned
+  CustomerSimUsageRuleChanged
+  VendorUsageProfileRuleDisabled
+  VendorUsageProfileRuleCustomizationRemoved
+  VendorUsageProfileRuleLimitIncreased
+  CustomerUsageProfileRuleDisabled
+  CustomerUsageProfileRuleCustomizationRemoved
+  CustomerUsageProfileRuleLimitIncreased
+  AdditionalProvisioning
+  ConnectivityServicePlanSynchronized
+  AssignedToCustomerRepresentative
+  UnassignedFromCustomerRepresentative
+  IpRedundancyEnabled
+  IpRedundancyDisabled
+  ModifiedCaption
+  ModifiedCustomerTags
+  ModifiedVendorTags
+  ModifiedVendorAttributes
+  ModifiedCustomerAttributes
+  NetworkServicesSynchronization
+}
+
+type SimChangesConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SimChangesEdge!]!
+}
+
+type SimChangesEdge {
+  node: SimChangeDetails!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""
+Object represented SIM details. Follow this type to see full list of available parameters.
+"""
+type SimDetails {
+  """The SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """The SIM MSISDN Identifier"""
+  msisdn: MSISDN
+
+  """The SIM Profile ICCID Identifier"""
+  iccid: ICCID!
+
+  """Identifier of the device which should use this SIM"""
+  imei: IMEI
+
+  """SIM Caption"""
+  caption: String
+
+  """SIM Labels"""
+  labels: [String!]!
+
+  """Customer information, see Customer"""
+  customer: Customer!
+
+  """Customer's usage profiles"""
+  usageProfile: [CustomerUsageProfile!]
+
+  """Customer's custom attributes"""
+  customAttributes: CustomAttrOutput!
+
+  """Business unit information, see BusinessUnitDetails"""
+  businessUnit: BusinessUnitDetails
+
+  """Sim settings information, see SimServicesSettings"""
+  simSettings: SimServicesSettings!
+
+  """Lifecycle phase SIM is currently in, see SimState"""
+  status: SimState!
+
+  """
+  List of APNs assigned to the SIM with detailed information within NetworkSettings
+  """
+  apns: [NetworkSettings!]!
+
+  """List of network slices assigned to the SIM with detailed information"""
+  networkSlices: [NetworkSlice!]
+
+  """The time of SIM activation"""
+  activationDate: OffsetDateTime
+
+  """
+  Quantity of services usage resources, tied up together, see UsageBundle
+  """
+  usageAllowances: [UsageAllowance!] @deprecated(reason: "Use 'allowance' field")
+
+  """Available shared allowances that can be added to the current SIM"""
+  availableSharedAllowances: [AvailableSharedAllowances!]
+
+  """Available nonShared allowances that can be added to the current SIM"""
+  availableNonSharedAllowances: [AvailableNonSharedAllowances!]
+
+  """SIM PIN1 code information"""
+  pin1: String
+
+  """SIM PIN2 code information"""
+  pin2: String
+
+  """SIM PUK1 code information"""
+  puk1: String
+
+  """SIM PUK2 code information"""
+  puk2: String
+
+  """eSIM profile information"""
+  eProfile: EProfile
+
+  """SIM Roaming information for services, see RoamingSettings"""
+  roamingSettings: RoamingSettings!
+
+  """SIM usage information for services, see UsageInformation"""
+  usageInformation: UsageInformation
+
+  """Address of sim where it is expected to be used"""
+  installLocation: InstallationLocationAddress
+
+  """SIM last session details, see LastSessionDetails"""
+  lastSessionDetails: LastSessionDetails
+
+  """Changes executed on the SIM."""
+  simChangesRefs(paging: PagingInput): SimChangesConnection
+
+  """
+  Connected Allowance Details. Follow Allowances type to see available parameters
+  """
+  allowances: AllowancesConnection
+
+  """Information about connected device."""
+  imeiInfo: ImeiInfo
+}
+
+"""
+Represent sim parameters. Follow this type to see full list of available parameters.
+"""
+type SimInfo {
+  """The SIM Profile IMSI Identifier"""
+  imsi: IMSI!
+
+  """The SIM Profile ICCID Identifier"""
+  iccid: ICCID!
+
+  """SIM Caption"""
+  caption: String
+
+  """Lifecycle phase SIM is currently in, see SimState"""
+  status: SimState!
+
+  """Labels of sim"""
+  labels: [String!]!
+
+  """Address of sim where it is expected to be used"""
+  installLocation: InstallationLocationAddress
+}
+
+"""Aggregates sim list filter parameters into one object."""
+input SimListParametersInput {
+  """Paging parameters, see PagingInput"""
+  pageInfo: PagingInput
+
+  """
+  Identifier specifying service profile for which sim list should be fetched
+  """
+  serviceProfileId: ServiceProfileId
+
+  """Specify statuses for which sim list should be filtered"""
+  simStatus: [SimState!]
+
+  """Specify label for which sim list should be filtered"""
+  label: String
+
+  """
+  Specify last time of modification and filter sims modified since that time
+  """
+  since: OffsetDateTime
+
+  """Specify list of IMSIs for which sim list should be filtered"""
+  imsis: [String!]
+
+  """Specify list of ICCIDs for which sim list should be filtered"""
+  iccids: [String!]
+
+  """Specify order ID for which sim list should be filtered"""
+  orderId: String
+
+  """Specify sort options for which sim list should be sorted"""
+  sortBy: SimListSortByInput
+}
+
+input SimListSortByInput {
+  imsi: SortOrder
+  msisdn: SortOrder
+  iccid: SortOrder
+  imei: SortOrder
+  status: SortOrder
+  activationDate: SortOrder
+  pin1: SortOrder
+  pin2: SortOrder
+  puk1: SortOrder
+  puk2: SortOrder
+}
+
+"""Represent sim module parameters"""
+type SimModule {
+  """Identifier specifying sim module"""
+  id: String!
+
+  """Name of sim module"""
+  name: String!
+
+  """Sim module package size"""
+  packageSizes: [Int!]
+}
+
+type SimModuleListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SimModuleListEdge!]!
+}
+
+type SimModuleListEdge {
+  node: SimModule!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""Aggregates sim modules input parameters into one object."""
+input SimModuleParametersInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+}
+
+input SimOrderListSortByInput {
+  id: SortOrder
+}
+
+type SimProduct {
+  name: String
+  unitSubscriptionId: String
+  formFactor: String
+  tempClass: String
+  materialNumber: String
+  unitType: String
+  packageSize: Long
+  packageQuantity: Long
+  pricePerSim: Float
+  simCardsOrdered: Long
+  simCardsDelivered: Long
+}
+
+"""Represent sim order parameters"""
+type SimProfileOrder {
+  """Identifier specifying sim order"""
+  id: String!
+
+  """Pretty identifier of the sim order"""
+  prettyId: String
+
+  """Identifier agreement"""
+  agreementId: String!
+
+  """Business unit"""
+  businessUnit: String
+
+  """Created for business unit"""
+  createdForBusinessUnit: String
+
+  """Order alias"""
+  orderAlias: String
+
+  """Creation date"""
+  createdAt: String
+
+  """Completion date"""
+  completedAt: String
+
+  """Status"""
+  status: String!
+
+  """Sim Product details"""
+  simProduct: SimProduct
+
+  """Delivery Address details"""
+  deliveryAddress: DeliveryAddress
+
+  """Customer"""
+  customer: CustomerInfo
+
+  """Tracking number"""
+  trackingNumber: String
+
+  """
+  Auto acceptance settings with state. The orders might be accepted automatically, so they have conditions to process it.
+  """
+  acceptanceSettings: AcceptanceSettings!
+  simList: [SimCardInfo!]! @deprecated(reason: "Use simList query with orderId param instead")
+}
+
+type SimProfileOrderListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SimProfileOrderListEdge!]!
+}
+
+type SimProfileOrderListEdge {
+  node: SimProfileOrder!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""Aggregates sim order input parameters into one object."""
+input SimProfileOrderParametersInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+
+  """Specify sort options for which sim order list should be sorted"""
+  sortBy: SimOrderListSortByInput
+}
+
+"""Represent sim order state parameters"""
+type SimProfileOrderState {
+  """State of sim order"""
+  state: String!
+
+  """Pretty identifier of the sim order"""
+  prettyId: String
+}
+
+"""
+Represent SIM service settings parameters. Follow this type to see full list of available parameters.
+"""
+type SimServicesSettings {
+  """State of data service"""
+  dataService: SimCellularServiceState
+
+  """State of SMS MO service"""
+  smsMoService: SimCellularServiceState
+
+  """State of SMS MT service"""
+  smsMtService: SimCellularServiceState
+
+  """State of incoming voice service"""
+  voiceIncomingService: SimCellularServiceState
+
+  """State of outgoing voice service"""
+  voiceOutgoingService: SimCellularServiceState
+}
+
+enum SimState {
+  """SIM is under tests"""
+  Test
+
+  """Used under normal conditions"""
+  Live
+
+  """Customer decided not to use sim temporarily"""
+  Sleep
+
+  """SIM is terminated"""
+  Terminated
+
+  """SIM is inactive"""
+  Inactive
+
+  """SIM is archived"""
+  Archived
+
+  """SIM is put into inventory, not used but not blocked"""
+  Inventory
+
+  """Sim is put into soft termination state"""
+  TerminationReady
+
+  """Sim is put into soft test state"""
+  TestReady
+
+  """The SIM has been replaced by another SIM."""
+  Replaced
+
+  """Identifies Sim that was migrated from external system."""
+  MigratedOut
+
+  """Sim is in the middle of process of transferring between customers"""
+  InTransfer
+
+  """SIM is transferred to other customer"""
+  Transferred
+
+  """SIM is returned"""
+  Returned
+}
+
+type SimsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SimsEdge!]!
+}
+
+type SimsDetailsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [SimsDetailsEdge!]!
+}
+
+type SimsDetailsEdge {
+  node: SimDetails!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+type SimsEdge {
+  node: SimInfo!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+"""Subscription Manager Data Preparation+ (SM-DP+) Address"""
+scalar SmDpAddress
+
+"""Subscription Manager Secure Routing (SM-SR) Identifier"""
+scalar SmSrId
+
+"""
+Represent SMS usage limit parameters. Follow this type to see full list of available parameters.
+"""
+type SmsUsageLimit {
+  """SMS usage limit name, used to improve management."""
+  name: String!
+
+  """
+  Shows SMS usage warnings information. To see all available parameters follow UsageLimitWarn type.
+  """
+  warn: [UsageLimitWarn!]!
+
+  """
+  Shows SMS usage limits configured. To see all available parameters follow SmsUsageLimitMax type.
+  """
+  max: SmsUsageLimitMax!
+}
+
+"""
+Represent SMS usage max limit parameters. Follow this type to see full list of available parameters.
+"""
+type SmsUsageLimitMax {
+  """SMS usage max volume limit."""
+  volume: Long
+
+  """SMS usage max amount limit."""
+  amount: BigDecimal
+}
+
+type Snssai {
+  serviceType: SnssaiServiceType!
+  serviceDifferentiator: String
+  serviceTypeNum: Int!
+}
+
+enum SnssaiServiceType {
+  eMBB
+  URLLC
+  MIoT
+  V2X
+  HMTC
+  NonStandard
+}
+
+enum SortOrder {
+  Asc
+  Desc
+}
+
+type SystemVersion {
+  appName: String!
+  version: String!
+  buildVersion: String!
+  buildDate: String!
+  gitHeadRev: String!
+  gitCommitDate: String!
+  gitBranch: String!
+  envName: String!
+  envType: EnvironmentType!
+  envFeatures: [String!]!
+}
+
+"""Represents time frame."""
+input TimeFrameInput {
+  """Start time"""
+  timeFrom: OffsetDateTime
+
+  """End time"""
+  timeTo: OffsetDateTime
+}
+
+enum TotalRelation {
+  Eq
+  Gte
+}
+
+"""
+Represent usage allowance parameters. Follow this type to see full list of available parameters.
+"""
+type UsageAllowance {
+  """Bundle name"""
+  name: String!
+
+  """Services for which bundle is configured, see UsageServiceType"""
+  service: [UsageServiceType!]!
+
+  """Bundle type, see UsageBundleType"""
+  bundleType: UsageAllowanceType!
+
+  """Bundle size, see BundleSize"""
+  volume: BundleSize!
+
+  """Bundle volume fee"""
+  volumePrice: BigDecimal
+}
+
+enum UsageAllowanceType {
+  """Fix-sized allowance shared by all SIMs in service profile"""
+  Subscription
+
+  """
+  Allowance shared by all SIMs in service profile. Each SIM's bundle is added to the shared bundle and can be used by other SIMs in Service Profile.
+  """
+  ResourcePooled
+
+  """Allowance that can be used only by individual SIM."""
+  ResourceNotShared
+}
+
+"""
+Represent SIM usage parameters. Follow this type to see full list of available parameters.
+"""
+type UsageInformation {
+  """Information about data transfers quantity, see Data"""
+  data: Data!
+}
+
+"""
+Represent usage warning limit parameters. Follow this type to see full list of available parameters.
+"""
+type UsageLimitWarn {
+  """Identifies warning level."""
+  level: Int!
+
+  """Identifies how important a given piece of information is."""
+  severity: String!
+}
+
+"""Represent usage profile parameters"""
+type UsageProfile {
+  """Identifier specifying monitoring profile"""
+  id: String!
+
+  """Name of the monitoring profile"""
+  name: String!
+}
+
+type UsageProfilesListConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [UsageProfilesListEdge!]!
+}
+
+type UsageProfilesListEdge {
+  node: UsageProfile!
+  cursor: String!
+  cursorPosition: Long!
+}
+
+input UsageProfilesListSortByInput {
+  id: SortOrder
+  name: SortOrder
+}
+
+"""Aggregates usage profiles input parameters into one object."""
+input UsageProfilesParametersInput {
+  """
+  Provide necessary parameters to pagination the data results. To see full list of parameters to tweak follow to the Paging type.
+  """
+  pageInfo: PagingInput
+
+  """
+  Business partner id for which usage profiles assigned. This partner should be in same hierarchy as customer that executes the api
+  """
+  customerId: String!
+
+  """Specify sort options for which usage profile list should be sorted"""
+  sortBy: UsageProfilesListSortByInput
+}
+
+enum UsageServiceType {
+  """DataNational Usage service type"""
+  DataNational
+
+  """DataRoaming Usage service type"""
+  DataRoaming
+
+  """SmsMoDeliveryReceipt Usage service type"""
+  SmsMoDeliveryReceipt
+
+  """SmsMoInternational Usage service type"""
+  SmsMoInternational
+
+  """SmsMoNational Usage service type"""
+  SmsMoNational
+
+  """SmsMoRoaming Usage service type"""
+  SmsMoRoaming
+
+  """VoiceInRoaming Usage service type"""
+  VoiceInRoaming
+
+  """VoiceInternational Usage service type"""
+  VoiceInternational
+
+  """VoiceNational Usage service type"""
+  VoiceNational
+
+  """VoiceOutRoaming Usage service type"""
+  VoiceOutRoaming
+}
+
+scalar UserAccountId
+
+"""
+Represent voice usage limit parameters. Follow this type to see full list of available parameters.
+"""
+type VoiceUsageLimit {
+  """Voice usage limit name, used to improve management."""
+  name: String!
+
+  """
+  Shows voice usage warnings information. To see all available parameters follow UsageLimitWarn type.
+  """
+  warn: [UsageLimitWarn!]!
+
+  """
+  Shows voice usage limits configured. To see all available parameters follow VoiceUsageLimitMax type.
+  """
+  max: VoiceUsageLimitMax!
+}
+
+"""
+Represent voice usage max limit parameters. Follow this type to see full list of available parameters.
+"""
+type VoiceUsageLimitMax {
+  """Voice usage max volume limit."""
+  volume: Long
+
+  """Voice usage max duration limit."""
+  duration: Long
+
+  """Voice usage max connections limit."""
+  connections: Long
+
+  """Voice usage max amount limit."""
+  amount: BigDecimal
+
+  """Voice usage max failed connections limit."""
+  connectionsFailed: Long
+}
+
+"""
+The `BigDecimal` scalar type represents signed fractional values with arbitrary precision.
+"""
+scalar BigDecimal
+
+"""
+The `BigInt` scalar type represents non-fractional signed whole numeric values. BigInt can represent arbitrary big values.
+"""
+scalar BigInt
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
